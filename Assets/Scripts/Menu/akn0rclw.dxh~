@@ -1,0 +1,58 @@
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class PopUp : MonoBehaviour
+{
+    private RawImage blank;
+
+    private GameObject popUp;
+    private TextMeshProUGUI message;
+    private Animator animator;
+
+    private IsConnected isConnected;
+
+    private void Start()
+    {
+        blank = GameObject.Find("Blank").GetComponent<RawImage>();
+        blank.enabled = false;
+
+        popUp = GameObject.Find("PopUp");
+        animator = popUp.GetComponent<Animator>();
+        message = popUp.GetComponentInChildren<TextMeshProUGUI>();
+        popUp.GetComponentInChildren<Button>().onClick.AddListener(ClosePopUp);
+
+        isConnected = GetComponent<IsConnected>();
+
+        //GameObject.Find("Play").GetComponent<Button>().onClick.AddListener(SendPopUp("Vous n'êtes pas connecté ! \n Veuillez Cliquez sur \"Connexion\" pour vous connecter ! ", true));
+    }
+
+    public void SendPopUp(string theMessage, bool connectWall)
+    {
+        blank.enabled = true;
+        if(connectWall == true)
+        {
+            if(isConnected.IsUserConnected() == true)
+            {
+                
+            }
+            else
+            {
+                message.text = theMessage;
+            }
+        }
+        else
+        {
+            message.text = theMessage;
+        }
+        message.text = theMessage;
+
+        animator.SetTrigger("isShowing");
+    }
+
+    public void ClosePopUp()
+    {
+        animator.SetTrigger("isHidding");
+        blank.enabled = false;
+    }
+}

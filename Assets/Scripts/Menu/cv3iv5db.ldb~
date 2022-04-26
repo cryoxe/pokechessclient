@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class Account : MonoBehaviour
+{
+    private IsConnected isConnected;
+    private TextMeshProUGUI accountName;
+    private SocketManager socketManager;
+
+    void Start()
+    {
+        isConnected = GameObject.Find("SceneManager").GetComponent<IsConnected>();
+        accountName = GameObject.Find("AccountName").GetComponent<TextMeshProUGUI>();
+        socketManager = GameObject.Find("SceneManager").GetComponent<SocketManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(isConnected.IsUserConnected() == true)
+        {
+            accountName.text = RequestPOST.theUsername;
+        }
+        else
+        {
+            accountName.text = "Vous n'êtes pas encore connecté";
+        }
+    }
+}

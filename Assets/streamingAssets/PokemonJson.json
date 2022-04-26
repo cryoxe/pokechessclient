@@ -1,0 +1,44 @@
+{
+    "pokemonId": "0004",
+    "name": "Salamèche",
+    "generation": "FIRST_GENERATION",
+    "level": 3,
+    "lifePoint": 45,
+    "baseSpeed": 65,
+    "size": 0.6,
+    "weight": 8.5,
+    "type": "feu",
+    "type2": "",
+    "offensiveAttack": {
+      "name": "Draco-Rage",
+      "description": "Ignore les bonus en Défense du Pokemon adverse.",
+      "type": "dragon",
+      "power": 20
+    },
+    "defensiveAttack": {
+      "name": "Brouillard",
+      "description": "Inflige un malus de Précision de 1.",
+      "type": "normal"
+    },
+    "weaknesses": [
+      "sol",
+      "roche",
+      "eau"
+    ],
+    "resistances": [
+      "insecte",
+      "fee",
+      "feu",
+      "glace",
+      "plante",
+      "acier"
+    ],
+    "evolutions": [
+      {
+        "evolutionType": "Evolution",
+        "description": "2 K.O.",
+        "pokemonId": "C005",
+        "name": "Reptincel"
+      }
+    ]
+  }

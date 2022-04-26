@@ -1,0 +1,179 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
+using TMPro;
+using Newtonsoft.Json;
+using SimpleJSON;
+using System;
+
+public class RequestPOST : MonoBehaviour
+{
+    public static string accessToken;
+    public static string refreshToken;
+
+    private SocketManager socketManager;
+    private Animator Pokeball;
+
+    public class UserAccount
+    {
+        public string username;
+        public string password;
+        public string trainerName;
+    }
+    
+    public class JwtRequest
+    {
+        public string username;
+        public string password;
+    }
+
+    public class JwtResponse
+    {
+        public string token_type;
+        public string access_token;
+        public string expiresIn;
+        public string refresh_token;
+    }
+    private void Start()
+    {
+        Pokeball = GameObject.Find("PokéBall").GetComponent<Animator>();
+        socketManager = GameObject.Find("SceneManager").GetComponent<SocketManager>();
+    }
+
+    public void SendPostRequestRegisterAccount(string url, TextMeshProUGUI outPutAera, string _username, string _password, string _trainerName) {
+        StartCoroutine(PostRequestRegisterAccount(url, outPutAera, _username, _password, _trainerName));
+    }
+    
+    public void SendPostRequestAuthenticate(string url, TextMeshProUGUI outPutAera, string _login, string _password) {
+        StartCoroutine(PostRequestAuthenticate(url, outPutAera, _login, _password));
+    }
+    
+
+   IEnumerator PostRequestRegisterAccount(string url, TextMeshProUGUI outPutAera, string _username, string _password, string _trainerName)
+   {
+        //créer le JSON à envoyer
+        var user = new UserAccount
+        {
+            username = _username,
+            password = _password,
+            trainerName = _trainerName
+        };
+        string json = JsonConvert.SerializeObject(user);
+        print("Je POST : " + json);
+
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        outPutAera.text = "Chargement...";
+        Pokeball.SetTrigger("isRotating");
+        yield return request.SendWebRequest();
+        Pokeball.SetTrigger("stop");
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            outPutAera.text = "Compte créé avec succès !";
+        }
+        else 
+        {
+            JSONNode jsonData = JSON.Parse(request.downloadHandler.text);
+
+            if (jsonData == null)
+            {
+                print("_______________NO DATA_______________");
+                outPutAera.text = "Le serveur n'as pas envoyé de donn�es...";
+            }
+            else
+            {
+                print("_______________DATA_______________");
+                if(request.result == UnityWebRequest.Result.ProtocolError)
+                {
+                    print("Je reçois : " + request.downloadHandler.text);
+
+                    if (int.TryParse(jsonData[1], out int resultat))
+                    {
+                        print("il y a un status => Conflict");
+                        outPutAera.text = "Il existe déjà un compte avec ce nom.";
+                    }
+                    else
+                    {
+                        print("il n'y a pas de status => FieldEmpty");
+                        outPutAera.text = "Vous ne pouvez pas laisser de champ vide.";
+                    }
+                }
+                else if(request.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    outPutAera.text = "Impossible de se connecter.";
+                }
+            }
+
+        }
+
+   }
+
+   IEnumerator PostRequestAuthenticate(string url, TextMeshProUGUI outPutAera, string _login, string _password)
+   {
+        //créer le JSON à envoyer
+        var user = new JwtRequest
+        {
+            username = _login,
+            password = _password
+        };
+        string json = JsonConvert.SerializeObject(user);
+        print("Je POST : " + json);
+
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        outPutAera.text = "Chargement...";
+        Pokeball.SetTrigger("isRotating");
+        yield return request.SendWebRequest();
+        Pokeball.SetTrigger("stop");
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Success");
+            Debug.Log(Encoding.UTF8.GetString(request.downloadHandler.data));
+            JwtResponse response = JsonConvert.DeserializeObject<JwtResponse>(Encoding.UTF8.GetString(request.downloadHandler.data));
+            accessToken = "Bearer " + response.access_token;
+            refreshToken = "Bearer " + response.refresh_token;
+            socketManager.ConnectWebsocket();
+            outPutAera.text = "Connexion réussi !";
+        }
+        else
+        {
+            JSONNode jsonData = JSON.Parse(request.downloadHandler.text);
+
+            if (jsonData == null)
+            {
+                print("_______________NO DATA_______________");
+                outPutAera.text = "Le serveur n'as pas envoyé de données...";
+            }
+            else
+            {
+                print("_______________DATA_______________");
+                if (request.result == UnityWebRequest.Result.ProtocolError)
+                {
+                    print("Je reçois : " + request.downloadHandler.text);
+
+                    outPutAera.text = "Testing...";
+
+                }
+                else if (request.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    outPutAera.text = "Impossible de se connecter.";
+                }
+            }
+
+        }
+
+    }
+}
+
