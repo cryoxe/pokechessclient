@@ -18,6 +18,7 @@ public class MenuSwap : MonoBehaviour
 
     public void Transition(int idMenu)
     {
+        myMenu.disableOnRequest.DisableAllInput(false);
         StaticVariable.idForMenuSwitch = idMenu;
         LeanTween.size(transitionUp, new Vector2(0f, 560f), 0.4f);
         LeanTween.size(transitionDown, new Vector2(0f, 560f), 0.4f).setOnComplete(FinishTransition);
@@ -38,6 +39,10 @@ public class MenuSwap : MonoBehaviour
                 Debug.Log("Called for Library!");
                 SwitchToCardLibrary();
                 break;
+            case 3 :
+                Debug.Log("Called for PlayMenu");
+                SwitchToPlayMenu();
+                break;
             default :
                 Debug.LogError("L'ID de menu n'a pas été reconnu !");
                 break;
@@ -53,21 +58,25 @@ public class MenuSwap : MonoBehaviour
         myMenu.mainButtonPlaceholder.SetActive(false);
         myMenu.playButtonPlaceholder.SetActive(false);
         myMenu.CardLibrary.SetActive(false);
+
+        myMenu.disableOnRequest.EnableAllInput(false);        
     }
     void SwitchToMainMenu()
     {
         myMenu.mainButtonPlaceholder.SetActive(true);
+
         myMenu.buttonSlide.SetTrigger("Show");
         myMenu.clearCard.destroyAllCard();
         myMenu.accountPlaceholder.SetActive(false);
         myMenu.playButtonPlaceholder.SetActive(false);
         myMenu.CardLibrary.SetActive(false);
         
-
+        myMenu.disableOnRequest.EnableAllInput(false);
     }
     void SwitchToCardLibrary()
     {
         myMenu.CardLibrary.SetActive(true);
+
         requestGET.SendGetRequestCardPage(1, 4);
         StaticVariable.currentPage = 1;
         StaticVariable.pageNumber = 1;
@@ -75,11 +84,16 @@ public class MenuSwap : MonoBehaviour
         myMenu.buttonSlide.SetTrigger("Hide");
         myMenu.mainButtonPlaceholder.SetActive(false);
         myMenu.playButtonPlaceholder.SetActive(false);
+
+        myMenu.disableOnRequest.EnableAllInput(false);
     }
     void SwitchToPlayMenu(){
+        myMenu.playButtonPlaceholder.SetActive(true);
+
         myMenu.accountPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
-        myMenu.playButtonPlaceholder.SetActive(false);
+
+        myMenu.disableOnRequest.EnableAllInput(false);
     }
 
     void FinishTransition()
