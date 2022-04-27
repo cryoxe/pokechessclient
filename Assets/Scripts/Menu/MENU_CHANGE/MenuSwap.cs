@@ -25,25 +25,22 @@ public class MenuSwap : MonoBehaviour
 
     void Switch()
     {
-
-        if (StaticVariable.idForMenuSwitch == 0)
-        {
-            Debug.Log("Called for ConnexionMenu!");
-            SwitchToConnexionMenu();
-        }
-        else if (StaticVariable.idForMenuSwitch == 1)
-        {
-            Debug.Log("Called for MainMenu!");
-            SwitchToMainMenu();
-        }
-        else if (StaticVariable.idForMenuSwitch == 2)
-        {
-            Debug.Log("Called for Library!");
-            SwitchToCardLibrary();
-        }
-        else
-        {
-            Debug.LogError("L'ID de menu n'a pas �t� reconnu !");
+        switch(StaticVariable.idForMenuSwitch){
+            case 0 :
+                Debug.Log("Called for ConnexionMenu!");
+                SwitchToConnexionMenu();
+                break;
+            case 1 :
+                Debug.Log("Called for MainMenu!");
+                SwitchToMainMenu();
+                break;
+            case 2 :
+                Debug.Log("Called for Library!");
+                SwitchToCardLibrary();
+                break;
+            default :
+                Debug.LogError("L'ID de menu n'a pas été reconnu !");
+                break;
         }
     }
 
@@ -76,6 +73,11 @@ public class MenuSwap : MonoBehaviour
         StaticVariable.pageNumber = 1;
         myMenu.pageNumber.text = "Page 1";
         myMenu.buttonSlide.SetTrigger("Hide");
+        myMenu.mainButtonPlaceholder.SetActive(false);
+        myMenu.playButtonPlaceholder.SetActive(false);
+    }
+    void SwitchToPlayMenu(){
+        myMenu.accountPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
         myMenu.playButtonPlaceholder.SetActive(false);
     }
