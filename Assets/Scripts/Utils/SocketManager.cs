@@ -1,16 +1,18 @@
 using UnityEngine;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Net.WebSockets;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
+using System.Threading.Tasks;
 
 public class SocketManager : MonoBehaviour
 {
     public ClientWebSocket clientSocket;
     public CancellationTokenSource ct;
+    public delegate void websocketMessageDelegate(string message);
+    public event websocketMessageDelegate websocketMessageEvent;
 
     public async void ConnectWebsocket()
     {
@@ -24,20 +26,21 @@ public class SocketManager : MonoBehaviour
         await clientSocket.SendAsync(messageConnect, WebSocketMessageType.Text, true, ct.Token);
         Debug.Log("Connected");
 
-        var messageSubscribe = new ArraySegment<byte>(Encoding.Default.GetBytes("SUBSCRIBE\r\nid:0\r\ndestination:/topic/greetings\r\nack:auto"));
-        await clientSocket.SendAsync(messageSubscribe, WebSocketMessageType.Text, true, ct.Token);
+        HandleMessages();
+    }
+
+    public async Task SubscribeRequest(int id, string destination) {
+        var messageSend = new ArraySegment<byte>(Encoding.Default.GetBytes("SUBSCRIBE\r\nid:" + id + "\r\ndestination:" + destination + "\r\nack:auto"));
+        Debug.Log("Subscribing...");
+        await clientSocket.SendAsync(messageSend, WebSocketMessageType.Text, true, ct.Token);
         Debug.Log("Subscribed");
     }
 
-    public async void SendRequest() {
-        var user = new Classes.JwtRequestDTO();
-        user.username = "crizang";
-        string json = JsonConvert.SerializeObject(user);
-        var messageSend = new ArraySegment<byte>(Encoding.Default.GetBytes("SEND\r\ndestination:/app/hello\r\n\n" + json));
-        Debug.Log("Sending");
+    public async void SendRequest(string destination, string jsonBody) {
+        var messageSend = new ArraySegment<byte>(Encoding.Default.GetBytes("SEND\r\ndestination:" + destination + "\r\n\n" + jsonBody));
+        Debug.Log("Sending message...");
         await clientSocket.SendAsync(messageSend, WebSocketMessageType.Text, true, ct.Token);
         Debug.Log("Sended");
-        await HandleMessages(clientSocket);
     }
 
     public async void DisconnectWebsocket() {
@@ -45,28 +48,35 @@ public class SocketManager : MonoBehaviour
         Debug.Log("Closed");
     }
 
-    private async Task HandleMessages(ClientWebSocket ws)
+    private async void HandleMessages()
     {
         try {
-            Debug.Log("Start listen");
+            Debug.Log("Start listening");
             using (var ms = new MemoryStream()) {
-                while (ws.State == WebSocketState.Open) {
+                while (clientSocket.State == WebSocketState.Open) {
                     WebSocketReceiveResult result;
                     do {
                         var messageBuffer = WebSocket.CreateClientBuffer(1024, 16);
-                        result = await ws.ReceiveAsync(messageBuffer, CancellationToken.None);
+                        result = await clientSocket.ReceiveAsync(messageBuffer, CancellationToken.None);
                         ms.Write(messageBuffer.Array, messageBuffer.Offset, result.Count);
                     }
                     while (!result.EndOfMessage);
+                    
+                    Debug.Log("Message received");
 
                     if (result.MessageType == WebSocketMessageType.Text) {
-                        Debug.Log("received");
                         var msgString = Encoding.UTF8.GetString(ms.ToArray());
+                        
+                        if (websocketMessageEvent != null) {
+                            websocketMessageEvent(msgString);
+                        }
+
                         Debug.Log(msgString);
                     }
                     ms.Seek(0, SeekOrigin.Begin);
                     ms.Position = 0;
                 }
+                Debug.Log("Connection lose");
             }
         } catch (InvalidOperationException) {
             Debug.Log("[WS] Tried to receive message while already reading one.");
