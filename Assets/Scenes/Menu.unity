@@ -8051,16 +8051,6 @@ MonoBehaviour:
   FunctionOnClick:
     m_PersistentCalls:
       m_Calls:
-<<<<<<< HEAD
-      - m_Target: {fileID: 1672689707}
-        m_TargetAssemblyTypeName: MenuSwap, Assembly-CSharp
-        m_MethodName: Transition
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-=======
       - m_Target: {fileID: 1672689716}
         m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
         m_MethodName: ConnectToLobby
@@ -8069,7 +8059,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
->>>>>>> db79d6a6fa5385274c22bbf63defab386be92617
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
