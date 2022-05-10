@@ -8051,6 +8051,7 @@ MonoBehaviour:
   FunctionOnClick:
     m_PersistentCalls:
       m_Calls:
+<<<<<<< HEAD
       - m_Target: {fileID: 1672689707}
         m_TargetAssemblyTypeName: MenuSwap, Assembly-CSharp
         m_MethodName: Transition
@@ -8059,6 +8060,16 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
+=======
+      - m_Target: {fileID: 1672689716}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
+        m_MethodName: ConnectToLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+>>>>>>> db79d6a6fa5385274c22bbf63defab386be92617
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8560,6 +8571,7 @@ GameObject:
   - component: {fileID: 1672689706}
   - component: {fileID: 1672689713}
   - component: {fileID: 1672689707}
+  - component: {fileID: 1672689716}
   - component: {fileID: 1672689701}
   - component: {fileID: 1672689709}
   - component: {fileID: 1672689712}
@@ -8801,6 +8813,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardToDestroy: []
+--- !u!114 &1672689716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672689700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db0eb44503516248a4ad1a865a9d0ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1686235115
 GameObject:
   m_ObjectHideFlags: 0
