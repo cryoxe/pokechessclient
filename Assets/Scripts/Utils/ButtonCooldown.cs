@@ -87,7 +87,7 @@ public class ButtonCooldown : MonoBehaviour
         {
             isHover = true;
             LeanTween.moveLocalX(gameObject, -696, 0.2f);
-            print("Avance !");
+            //print("Avance !");
         }
     }
     private void OnMouseExit()
@@ -100,7 +100,7 @@ public class ButtonCooldown : MonoBehaviour
         {
             isHover = false;            
             LeanTween.moveLocalX(gameObject, -796, 0.2f);
-            print("Recul !");
+            //print("Recul !");
         }
     }
 
