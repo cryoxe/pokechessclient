@@ -8,7 +8,7 @@ public class LobbyMenu : MonoBehaviour {
 
     private void Start()
     {
-        FindObjectOfType<SocketManager>().websocketMessageEvent += onMessage;
+        FindObjectOfType<SocketManager>().creationPartyMessageEvent += onMessage;
         myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
         socketManager = myMenu.sceneManager.GetComponent<SocketManager>();
     }
@@ -18,15 +18,15 @@ public class LobbyMenu : MonoBehaviour {
         SubscribeForLobby();
     }
 
-    public void onMessage(string message)
+    public void onMessage(CreationPartyMessage message)
     {
         Debug.Log(message);
     }
 
     private async void SubscribeForLobby()
     {
-        await socketManager.SubscribeRequest(1, "/parties/creation");
-        await socketManager.SubscribeRequest(2, "/parties/update");
-        await socketManager.SubscribeRequest(3, "/parties/deletion");
+        await socketManager.SubscribeRequest(CreationPartyMessage.id, CreationPartyMessage.destination);
+        await socketManager.SubscribeRequest(UpdatePartyMessage.id, UpdatePartyMessage.destination);
+        await socketManager.SubscribeRequest(DeletionPartyMessage.id, DeletionPartyMessage.destination);
     } 
 }
