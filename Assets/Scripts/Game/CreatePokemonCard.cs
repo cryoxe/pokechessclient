@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using SimpleJSON;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor;
 
 [System.Serializable]
 public struct PokemonCardListText

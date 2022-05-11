@@ -477,8 +477,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255423
-  m_fontColor: {r: 0.24624765, g: 1, b: 0, a: 1}
+    rgba: 4280757448
+  m_fontColor: {r: 0.78431374, g: 0.17146772, b: 0.15294117, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 1700723787438535530}
   - component: {fileID: 3291077074068110079}
   m_Layer: 5
-  m_Name: PlayerIcone
+  m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,6 +623,7 @@ GameObject:
   - component: {fileID: 1801550796802374356}
   - component: {fileID: 6087652560047634254}
   - component: {fileID: 9160198776860371436}
+  - component: {fileID: 6068013525017682051}
   m_Layer: 5
   m_Name: Room
   m_TagString: Untagged
@@ -692,6 +693,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6068013525017682051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454419023944616660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf313ee036004374688645dccb515eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomComponent:
+    nameOfRoom: {fileID: 5623386633075407484}
+    nameOfOwner: {fileID: 6300287513531321009}
+    accessType: {fileID: 7855903945280133932}
+    numberOfPlayer: {fileID: 2610942329731164832}
+    lockImage: {fileID: 3291077074068110079}
 --- !u!1 &7661492414575116214
 GameObject:
   m_ObjectHideFlags: 0
