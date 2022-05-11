@@ -21,6 +21,7 @@ public class LobbyMenu : MonoBehaviour {
     public void onMessage(CreationPartyMessage message)
     {
         Debug.Log(message);
+        
     }
 
     private async void SubscribeForLobby()

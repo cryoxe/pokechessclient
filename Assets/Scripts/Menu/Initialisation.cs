@@ -42,6 +42,9 @@ public class Initialisation : MonoBehaviour
     [HideInInspector]public GameObject playButtonPlaceholder;
     [HideInInspector]public Button joinRoomButton, createRoomButton, backButton;
 
+    //Menu Lobby
+    [HideInInspector]public GameObject LobbyPlaceholder;
+
     //Menu Card Library
     [HideInInspector]public GameObject CardLibrary, Content;
     [HideInInspector]public CardPage cardPage;
@@ -109,6 +112,8 @@ public class Initialisation : MonoBehaviour
         createRoomButton = GameObject.Find("PlayJoin").GetComponent<Button>();
         createRoomButton = GameObject.Find("Back").GetComponent<Button>();
 
+        //Menu Lobby
+        LobbyPlaceholder = GameObject.Find("LobbyMenu");
 
         //Menu Card Library
         CardLibrary = GameObject.Find("CardLibrary");

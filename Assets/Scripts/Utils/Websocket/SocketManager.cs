@@ -82,11 +82,11 @@ public class SocketManager : MonoBehaviour
                     ms.Seek(0, SeekOrigin.Begin);
                     ms.Position = 0;
                 }
-                Debug.Log("Connection lose");
+                Debug.LogWarning("Connection lose");
             }
         } catch (InvalidOperationException)
         {
-            Debug.Log("[WS] Tried to receive message while already reading one.");
+            Debug.LogError("[WS] Tried to receive message while already reading one.");
         }
     }
 

@@ -43,6 +43,10 @@ public class MenuSwap : MonoBehaviour
                 Debug.Log("Called for PlayMenu");
                 SwitchToPlayMenu();
                 break;
+            case 4 :
+                Debug.Log("Called for LobbyMenu");
+                SwitchToLobbyMenu();
+                break;
             default :
                 Debug.LogError("L'ID de menu n'a pas été reconnu !");
                 break;
@@ -58,6 +62,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.mainButtonPlaceholder.SetActive(false);
         myMenu.playButtonPlaceholder.SetActive(false);
         myMenu.CardLibrary.SetActive(false);
+        myMenu.LobbyPlaceholder.SetActive(false);
 
         myMenu.disableOnRequest.EnableAllInput(false);        
     }
@@ -93,6 +98,12 @@ public class MenuSwap : MonoBehaviour
         myMenu.accountPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
 
+        myMenu.disableOnRequest.EnableAllInput(false);
+    }
+    void SwitchToLobbyMenu()
+    {
+        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.LobbyPlaceholder.SetActive(true);
         myMenu.disableOnRequest.EnableAllInput(false);
     }
 
