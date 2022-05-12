@@ -106,6 +106,7 @@ public class RequestGET : MonoBehaviour
                 foreach(JSONNode party in parties){
                     GameObject thisRoom = Instantiate(partyPrefab, myMenu.LobbyFitter.transform, false);
                     thisRoom.GetComponent<RoomText>().MakeMyRoom(party["name"], party["owner"], party["withPassword"], party["numberOfPlayer"]);
+                    thisRoom.name = party["name"];
                 }                   
                 break;    
         }
