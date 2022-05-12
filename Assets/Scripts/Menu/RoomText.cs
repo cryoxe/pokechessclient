@@ -24,7 +24,7 @@ public class RoomText : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void MakeMyRoom(string nameOfRoom, string nameOfOwner, bool isPassword=false, int numberOfPlayer=1)
+    public void MakeMyRoom(string nameOfRoom, string nameOfOwner="Mssigno", bool isPassword=false, int numberOfPlayer=1)
     {
         roomComponent.nameOfRoom.text = nameOfRoom;
         roomComponent.nameOfOwner.text = nameOfOwner;

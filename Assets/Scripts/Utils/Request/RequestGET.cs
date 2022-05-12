@@ -23,9 +23,12 @@ public class RequestGET : MonoBehaviour
     {
         StartCoroutine(GetRequestCardPage(page, size, isFilter, filter));
     }
-
-    IEnumerator GetRequestCardPage(int page, int size, bool isFilter, string filter)
+    public void SendGetRequestAllParties()
     {
+        StartCoroutine(GetRequestAllParties());
+    }    
+
+    IEnumerator GetRequestCardPage(int page, int size, bool isFilter, string filter){
 
         string CardPageURL = "";
         if (isFilter)
@@ -74,5 +77,37 @@ public class RequestGET : MonoBehaviour
                 break;    
         }
     }
+    IEnumerator GetRequestAllParties()
+    {
+        using UnityWebRequest webRequest = UnityWebRequest.Get(StaticVariable.apiUrl + "parties");
+        webRequest.SetRequestHeader("Authorization", StaticVariable.accessToken);
+        // Request and wait.
+        myMenu.disableOnRequest.DisableAllInput();
+        yield return webRequest.SendWebRequest();
+        myMenu.disableOnRequest.EnableAllInput();
 
+        switch (webRequest.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError("Error: " + webRequest.error);
+                break;
+
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError("HTTP Error: " + webRequest.error);
+                break;
+
+            case UnityWebRequest.Result.Success:
+                Debug.Log("Received: " + webRequest.downloadHandler.text);
+                //Debug.Log("Received: " + webRequest.responseCode);
+                JSONNode listOfParties = JSON.Parse(webRequest.downloadHandler.text);
+                JSONNode parties = listOfParties["parties"];
+                GameObject partyPrefab = Resources.Load<GameObject>("Prefabs/Room");
+                foreach(JSONNode party in parties){
+                    GameObject thisRoom = Instantiate(partyPrefab, myMenu.LobbyFitter.transform, false);
+                    thisRoom.GetComponent<RoomText>().MakeMyRoom(party["name"], party["owner"], party["withPassword"], party["numberOfPlayer"]);
+                }                   
+                break;    
+        }
+    }
 }
