@@ -92,6 +92,9 @@ public class SocketManager : MonoBehaviour
 
     private void MapMessage(string messageStr)
     {
+        int index = messageStr.LastIndexOf("}");
+        if (index > 0) messageStr = messageStr.Substring(0, index+1);
+        Debug.Log("Message Substring : " + messageStr);
         var destination = new Regex(@"(destination:)(.)*").Match(messageStr);
         var bodyMessage = new Regex(@"({){1}(.)*(}){1}").Match(messageStr);
         if (destination.Success && bodyMessage.Success)
