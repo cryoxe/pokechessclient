@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Classes : MonoBehaviour
-{
     //JSON CLASS
     public class UserAccount
     {
@@ -102,4 +100,9 @@ public class Classes : MonoBehaviour
         public int lastPage { get; set; }
         public int total { get; set; }
     }
-}
+
+    public class JoinRoom
+    {
+        public string password { get; set; }
+    }
+

@@ -64,11 +64,16 @@ public class RequestPOST : MonoBehaviour
         StartCoroutine(PostRequestCreateRoom(url, outPutAera, _roomName, _password));
     }
 
+    public void SendPostRequestJoinRoom(string nameOfRoom, string password = "")
+    {
+        StartCoroutine(PostRequestJoinRoom(nameOfRoom, password));
+    }
+
     //coroutine d'envoi de POST
    IEnumerator PostRequestRegisterAccount(string url, string _username, string _password, string _trainerName)
    {
         //créer le JSON à envoyer
-        var user = new Classes.UserAccount
+        var user = new UserAccount
         {
             username = _username,
             password = _password,
@@ -131,7 +136,7 @@ public class RequestPOST : MonoBehaviour
    IEnumerator PostRequestAuthenticate(string url, string _login, string _password)
    {
         //créer le JSON à envoyer
-        var user = new Classes.JwtRequest
+        var user = new JwtRequest
         {
             username = _login,
             password = _password
@@ -148,7 +153,7 @@ public class RequestPOST : MonoBehaviour
             //Backend
             Debug.Log("Success");
             Debug.Log(Encoding.UTF8.GetString(request.downloadHandler.data));
-            Classes.JwtResponse response = JsonConvert.DeserializeObject<Classes.JwtResponse>(Encoding.UTF8.GetString(request.downloadHandler.data));
+            JwtResponse response = JsonConvert.DeserializeObject<JwtResponse>(Encoding.UTF8.GetString(request.downloadHandler.data));
             StaticVariable.accessToken = "Bearer " + response.access_token;
             StaticVariable.refreshToken = "Bearer " + response.refresh_token;
             socketManager.ConnectWebsocket();
@@ -195,7 +200,7 @@ public class RequestPOST : MonoBehaviour
    IEnumerator PostRequestCreateRoom(string url, TextMeshProUGUI outPutAera, string _roomName, string _password) 
    {
         //créer le JSON à envoyer
-        var user = new Classes.NewRoom
+        var user = new NewRoom
         {
             name = _roomName,
             password = _password
@@ -244,7 +249,11 @@ public class RequestPOST : MonoBehaviour
             }
 
         }
+    }
 
-   }
+    IEnumerator PostRequestJoinRoom(string nameOfRoom, string password)
+    {
+        return null;
+    }
 }
 

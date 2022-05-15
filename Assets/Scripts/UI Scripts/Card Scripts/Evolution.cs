@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Evolution : MonoBehaviour
+public class EvolutionUI : MonoBehaviour
 {
     public TextMeshProUGUI evolutionName;
     public TextMeshProUGUI condition;

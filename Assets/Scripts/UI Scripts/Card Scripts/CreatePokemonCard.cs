@@ -211,7 +211,7 @@ public class CreatePokemonCard : MonoBehaviour
             //print(myEvo["evolutionType"]);
             float pos = holder.position.y - (120 * i);
             GameObject EvoInstance = Instantiate(evoPrefab, new Vector3(holder.position.x, pos, holder.position.z), Quaternion.identity, holder) as GameObject;
-            Evolution EvoComponent = EvoInstance.GetComponent<Evolution>();
+            EvolutionUI EvoComponent = EvoInstance.GetComponent<EvolutionUI>();
             EvoComponent.evolutionName.text = myEvo["name"];
             Image = Resources.Load<Sprite>("Sprites/PokémonTemplate/PokemonImage/Cartouche/" + myEvo["pokemonId"]);
             EvoComponent.image.sprite = Image;
