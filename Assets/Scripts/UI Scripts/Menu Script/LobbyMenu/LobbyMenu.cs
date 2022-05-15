@@ -9,8 +9,9 @@ public class LobbyMenu : MonoBehaviour {
 
     private void Start()
     {
-        FindObjectOfType<SocketManager>().creationPartyMessageEvent += onMessage;
-        FindObjectOfType<SocketManager>().deletionPartyMessageEvent += test;
+        FindObjectOfType<SocketManager>().creationPartyMessageEvent += onMessageCreation;
+        FindObjectOfType<SocketManager>().deletionPartyMessageEvent += onMessageDeletion;
+        FindObjectOfType<SocketManager>().updatePartyMessageEvent += onMessageUpdate;
         myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
         socketManager = myMenu.sceneManager.GetComponent<SocketManager>();
         partyPrefab = Resources.Load<GameObject>("Prefabs/Room");
@@ -21,7 +22,7 @@ public class LobbyMenu : MonoBehaviour {
         SubscribeForLobby();
     }
 
-    public void onMessage(CreationPartyMessage message)
+    public void onMessageCreation(CreationPartyMessage message)
     {
         Debug.Log(message);
         GameObject thisRoom = Instantiate(partyPrefab, myMenu.LobbyFitter.transform, false);
@@ -31,7 +32,7 @@ public class LobbyMenu : MonoBehaviour {
         
     }
 
-    public void test(DeletionPartyMessage message)
+    public void onMessageDeletion(DeletionPartyMessage message)
     {
         Debug.Log(message);
         Debug.Log("Party to destroy : " + message.name);
@@ -39,12 +40,20 @@ public class LobbyMenu : MonoBehaviour {
         try
         {
             Destroy(GameObject.Find(message.name));
+            Debug.LogWarning("la salle a bien été détruite");
         }
         catch
         {
             Debug.LogWarning("la salle à détruire n'a pas été trouvé...");
         }
         
+    }
+
+    public void onMessageUpdate(UpdatePartyMessage message)
+    {
+        Debug.Log(message);
+        GameObject roomToUpdate = GameObject.Find(message.name);
+        roomToUpdate.GetComponent<RoomText>().roomComponent.numberOfPlayer.text = message.playerNumber.ToString();
     }
 
     private async void SubscribeForLobby()
