@@ -79,8 +79,7 @@ public class SocketManager : MonoBehaviour
                     {
                         MapMessage(Encoding.UTF8.GetString(ms.ToArray()));
                     }
-                    ms.Seek(0, SeekOrigin.Begin);
-                    ms.Position = 0;
+                    ms.SetLength(0);
                 }
                 Debug.LogWarning("Connection lose");
             }
@@ -92,11 +91,10 @@ public class SocketManager : MonoBehaviour
 
     private void MapMessage(string messageStr)
     {
-        int index = messageStr.LastIndexOf("}");
-        if (index > 0) messageStr = messageStr.Substring(0, index+1);
         Debug.Log("Message Substring : " + messageStr);
-        var destination = new Regex(@"(destination:)(.)*").Match(messageStr);
-        var bodyMessage = new Regex(@"({){1}(.)*(}){1}").Match(messageStr);
+
+        var destination = Regex.Match(messageStr, @"(destination:)(.)*");
+        var bodyMessage = Regex.Match(messageStr, @"({){1}(.)*(}){1}");
         if (destination.Success && bodyMessage.Success)
         {
             switch (destination.Value.Substring(12))
