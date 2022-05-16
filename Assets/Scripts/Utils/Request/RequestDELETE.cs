@@ -17,9 +17,7 @@ public class RequestDELETE : MonoBehaviour
 
     private void Start()
     {
-        myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
-        //Pokeball = GameObject.Find("PokéBall").GetComponent<Animator>();
-        outPutAera = GameObject.Find("DestroyText").GetComponent<TextMeshProUGUI>();
+        myMenu = FindObjectOfType<Initialisation>();
     }
 
     public void SendDeleteRequestRoom()
@@ -39,7 +37,7 @@ public class RequestDELETE : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            outPutAera.text = "Room supprimé";
+            //outPutAera.text = "Room supprimé";
             print(request.downloadHandler.data);
         }
         else
