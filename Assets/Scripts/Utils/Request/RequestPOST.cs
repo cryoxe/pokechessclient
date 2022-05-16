@@ -205,15 +205,7 @@ public class RequestPOST : MonoBehaviour
             name = _roomName,
             password = _password
         };
-        string json = JsonConvert.SerializeObject(user);
-        print("Je POST : " + json);
-
-        var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
-        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        request.SetRequestHeader("Authorization", StaticVariable.accessToken);//"Content-Type", "application/json", 
-        request.SetRequestHeader("Content-Type", "application/json");
+        UnityWebRequest request = CreateJsonToSend(user, url);
 
         //envoyer la requête
         outPutAera.text = "Chargement...";
@@ -253,7 +245,51 @@ public class RequestPOST : MonoBehaviour
 
     IEnumerator PostRequestJoinRoom(string nameOfRoom, string password)
     {
-        return null;
-    }
-}
+        string url = StaticVariable.apiUrl + "parties/" + nameOfRoom + "/join";
+        Debug.Log("Trying To connect to : " + url);
+        UnityWebRequest request = null;
 
+        if(password != "")
+        {
+            var user = new JoinRoom { password = password };
+            request = CreateJsonToSend(user, url);
+        }
+        else
+        {
+            Debug.Log("Pas de MDP");
+            request = new UnityWebRequest(url, "POST");
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            request.SetRequestHeader("Authorization", StaticVariable.accessToken);
+            request.SetRequestHeader("Content-Type", "application/json");
+        }
+
+        //envoyer la requête
+        myMenu.disableOnRequest.DisableAllInput();
+        yield return request.SendWebRequest();
+        myMenu.disableOnRequest.EnableAllInput();
+
+        switch (request.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError("Error: " + request.error);
+                break;
+
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError("HTTP Error: " + request.error);
+                Debug.LogError(request.responseCode);
+                break;
+
+            case UnityWebRequest.Result.Success:
+                Debug.Log("Received: " + request.downloadHandler.text);
+                JSONNode Partie = JSON.Parse(request.downloadHandler.text);
+                Party myParty = JsonConvert.DeserializeObject<Party>(request.downloadHandler.text);
+                FindObjectOfType<MenuSwap>().Transition(5);
+                yield return new WaitForSeconds(0.41f);
+                FindObjectOfType<PartyText>().MakeMyParty(myParty);
+
+                break;
+        }
+    }
+
+}

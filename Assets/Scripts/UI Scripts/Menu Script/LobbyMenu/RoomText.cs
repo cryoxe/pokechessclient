@@ -16,19 +16,14 @@ public class RoomText : MonoBehaviour
 
     }
     public RoomComponent roomComponent;
+    private bool isPasswordInThisRoom;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     public void MakeMyRoom(string nameOfRoom, string nameOfOwner="Mssigno", bool isPassword=false, int numberOfPlayer=1)
     {
         roomComponent.nameOfRoom.text = nameOfRoom;
         roomComponent.nameOfOwner.text = nameOfOwner;
         roomComponent.numberOfPlayer.text = numberOfPlayer.ToString();
+        isPasswordInThisRoom = isPassword;
         if(isPassword == false)
         {
             //(80, 200, 40)
@@ -43,5 +38,20 @@ public class RoomText : MonoBehaviour
             roomComponent.accessType.color =  Color.red;
             roomComponent.lockImage.color =  Color.red;
         }
+    }
+
+    public void JoinThisRoom()
+    {
+        string password = "";
+        if(isPasswordInThisRoom == true)
+        {
+            //Demander le MDP à l'utilisateur
+            //NE PEUT PAS ÊTRE : ""
+        }
+        else
+        {
+            password = "";
+        }
+        FindObjectOfType<RequestPOST>().SendPostRequestJoinRoom(roomComponent.nameOfRoom.text, password);
     }
 }

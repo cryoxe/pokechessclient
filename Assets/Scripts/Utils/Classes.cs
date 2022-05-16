@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+
     //JSON CLASS
     public class UserAccount
     {
@@ -104,5 +106,14 @@ using UnityEngine;
     public class JoinRoom
     {
         public string password { get; set; }
+    }
+
+    public class Party
+    {
+        public string owner { get; set; }
+        public string name { get; set; }
+        public List<string> players { get; set; }
+        public string state { get; set; }
+        public bool withPassword { get; set; }
     }
 

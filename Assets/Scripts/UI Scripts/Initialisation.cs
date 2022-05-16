@@ -46,6 +46,10 @@ public class Initialisation : MonoBehaviour
     [HideInInspector]public GameObject LobbyPlaceholder;
     [HideInInspector]public VerticalLayoutGroup LobbyFitter;
 
+    //Menu Party
+    [HideInInspector]public GameObject PartyPlaceholder;
+    [HideInInspector]public GameObject PartyFitter;
+
     //Menu Card Library
     [HideInInspector]public GameObject CardLibrary, Content;
     [HideInInspector]public CardPage cardPage;
@@ -116,6 +120,10 @@ public class Initialisation : MonoBehaviour
         //Menu Lobby
         LobbyPlaceholder = GameObject.Find("LobbyMenu");
         LobbyFitter = GameObject.Find("fitter").GetComponent<VerticalLayoutGroup>();
+
+        //Menu Party
+        PartyPlaceholder = GameObject.Find("PartyMenu");
+        PartyFitter = GameObject.Find("PartyFitter");
 
         //Menu Card Library
         CardLibrary = GameObject.Find("CardLibrary");
