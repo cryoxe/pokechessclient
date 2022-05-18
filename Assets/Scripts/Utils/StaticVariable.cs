@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-public class StaticVariable : MonoBehaviour
+public class StaticVariable
 {
 
     public static string accessToken;
@@ -27,5 +27,7 @@ public class StaticVariable : MonoBehaviour
 
     public static bool isFilterEnable = false;
     public static string filter;
+
+    public static string nameOfThePartyIn = null;
 
 }

@@ -27,7 +27,7 @@ public class RequestDELETE : MonoBehaviour
 
     IEnumerator DeleteRequestRoom()
     {
-        var request = new UnityWebRequest(StaticVariable.apiUrl+"party", "DELETE");
+        var request = new UnityWebRequest(StaticVariable.apiUrl+"parties", "DELETE");
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         request.SetRequestHeader("Authorization", StaticVariable.accessToken);
 
@@ -37,12 +37,12 @@ public class RequestDELETE : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            //outPutAera.text = "Room supprimé";
-            print(request.downloadHandler.data);
+            Debug.Log("L'utilsateur a bien quitté la partie");
+            myMenu.menuSwap.Transition(3);
         }
         else
         {
-            outPutAera.text = "Réessaye ?";
+            Debug.Log("échec de quitter la salle");
         }
     }
 }

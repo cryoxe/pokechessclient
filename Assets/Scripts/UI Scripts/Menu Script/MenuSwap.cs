@@ -57,8 +57,6 @@ public class MenuSwap : MonoBehaviour
         }
     }
 
-
-
     public void SwitchToConnexionMenu()
     {
         myMenu.accountPlaceholder.SetActive(true);
@@ -101,6 +99,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.playButtonPlaceholder.SetActive(true);
 
         myMenu.accountPlaceholder.SetActive(false);
+        myMenu.PartyPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
 
         myMenu.disableOnRequest.EnableAllInput(false);
@@ -112,7 +111,6 @@ public class MenuSwap : MonoBehaviour
 
         myMenu.disableOnRequest.EnableAllInput(false);
     }
-
     void SwitchToPartyMenu()
     {
         myMenu.playButtonPlaceholder.SetActive(false);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerInPartyText : MonoBehaviour
+public class PlayerInPartyMenu : MonoBehaviour
 {
 
     [System.Serializable]

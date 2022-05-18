@@ -285,8 +285,9 @@ public class RequestPOST : MonoBehaviour
                 JSONNode Partie = JSON.Parse(request.downloadHandler.text);
                 Party myParty = JsonConvert.DeserializeObject<Party>(request.downloadHandler.text);
                 FindObjectOfType<MenuSwap>().Transition(5);
+                StaticVariable.nameOfThePartyIn = Partie["name"];
                 yield return new WaitForSeconds(0.41f);
-                FindObjectOfType<PartyText>().MakeMyParty(myParty);
+                FindObjectOfType<PartyMenu>().MakeMyParty(myParty);
 
                 break;
         }

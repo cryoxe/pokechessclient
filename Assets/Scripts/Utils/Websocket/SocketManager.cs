@@ -12,12 +12,21 @@ public class SocketManager : MonoBehaviour
 {
     public ClientWebSocket clientSocket;
     public CancellationTokenSource ct;
+
+    //Party Lobby event
     public delegate void creationPartyMessageDelegate(CreationPartyMessage message);
     public event creationPartyMessageDelegate creationPartyMessageEvent;
     public delegate void updatePartyMessageDelegate(UpdatePartyMessage message);
     public event updatePartyMessageDelegate updatePartyMessageEvent;
     public delegate void deletionPartyMessageDelegate(DeletionPartyMessage message);
     public event deletionPartyMessageDelegate deletionPartyMessageEvent;
+
+    //In Party event
+    public delegate void partyPlayerConnexionUpdateDelegate(PartyPlayerConnexionUpdate message);
+    public event partyPlayerConnexionUpdateDelegate partyPlayerConnexionUpdateEvent;
+    public delegate void partyStateUpdateDelegate(PartyStateUpdate message);
+    public event partyStateUpdateDelegate partyStateUpdateEvent;
+
 
     public async void ConnectWebsocket()
     {
@@ -95,8 +104,13 @@ public class SocketManager : MonoBehaviour
 
         var destination = Regex.Match(messageStr, @"(destination:)(.)*");
         var bodyMessage = Regex.Match(messageStr, @"({){1}(.)*(}){1}");
+
+        var  partyPlayerConnexionUpdateDestination = new PartyPlayerConnexionUpdate{destination = "/parties/" + StaticVariable.nameOfThePartyIn + "/players/connection"};
+        var partyStateUpdateDestination = new PartyStateUpdate{destination = "/parties/" + StaticVariable.nameOfThePartyIn + "/state"};
         if (destination.Success && bodyMessage.Success)
         {
+
+
             switch (destination.Value.Substring(12))
             {
                 case CreationPartyMessage.destination:
@@ -108,7 +122,19 @@ public class SocketManager : MonoBehaviour
                 case DeletionPartyMessage.destination:
                     if (deletionPartyMessageEvent != null) deletionPartyMessageEvent(JsonConvert.DeserializeObject<DeletionPartyMessage>(bodyMessage.Value));
                     break;
+                default :
+                    if(destination.Value.Substring(12) == partyPlayerConnexionUpdateDestination.destination)
+                    {
+                        if (partyPlayerConnexionUpdateEvent != null) partyPlayerConnexionUpdateEvent(JsonConvert.DeserializeObject<PartyPlayerConnexionUpdate>(bodyMessage.Value));
+                    }
+                    else if(destination.Value.Substring(12) == partyStateUpdateDestination.destination)
+                    {
+                        if (partyStateUpdateEvent != null) partyStateUpdateEvent(JsonConvert.DeserializeObject<PartyStateUpdate>(bodyMessage.Value));
+                    }
+                    break;
+
             }
+
         }
     }
 }
