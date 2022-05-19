@@ -9804,9 +9804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f65a286caff8e24c8b812191aca135d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AccountData:
-    username: Cryoxe2
-    password: TestAccount
 --- !u!1 &1686235115
 GameObject:
   m_ObjectHideFlags: 0
