@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro;
 using Newtonsoft.Json;
 using SimpleJSON;
-using System;
+using System.IO;
 
 public class RequestGET : MonoBehaviour
 {
@@ -143,10 +141,12 @@ public class RequestGET : MonoBehaviour
 
             case UnityWebRequest.Result.ProtocolError:
                 Debug.LogError("HTTP Error: " + webRequest.error);
-                JSONNode errorType = JSON.Parse(webRequest.downloadHandler.text);
-                if(errorType["error"] == "Expired JWT token")
+
+                if(webRequest.responseCode == 403)
                 {
                     popUp.ChangePopUpMessage("Vos identifiants sont arrivés à date d'expiration, veuillez vous reconnecter.");
+                    File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+                    UnityEditor.AssetDatabase.Refresh();
                     popUp.PopUpShowInteraction();
                     myMenu.menuSwap.Transition(0);
                 }
