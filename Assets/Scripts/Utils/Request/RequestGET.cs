@@ -143,6 +143,13 @@ public class RequestGET : MonoBehaviour
 
             case UnityWebRequest.Result.ProtocolError:
                 Debug.LogError("HTTP Error: " + webRequest.error);
+                JSONNode errorType = JSON.Parse(webRequest.downloadHandler.text);
+                if(errorType["error"] == "Expired JWT token")
+                {
+                    popUp.ChangePopUpMessage("Vos identifiants sont arrivés à date d'expiration, veuillez vous reconnecter.");
+                    popUp.PopUpShowInteraction();
+                    myMenu.menuSwap.Transition(0);
+                }
                 break;
 
             case UnityWebRequest.Result.Success:

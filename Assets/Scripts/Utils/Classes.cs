@@ -122,4 +122,8 @@ using UnityEngine;
         public string state { get; set; }
         public bool withPassword { get; set; }
     }
+    public class Error
+    {
+        public string error { get; set; }
+    }
 
