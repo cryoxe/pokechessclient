@@ -53,7 +53,5 @@ public class RoomText : MonoBehaviour
             password = "";
         }
         FindObjectOfType<RequestPOST>().SendPostRequestJoinRoom(roomComponent.nameOfRoom.text, password);
-        RoomText[] roomAlreadyIn = FindObjectsOfType<RoomText>();
-        foreach(RoomText roomIn in roomAlreadyIn){Destroy(roomIn.gameObject);};
     }
 }

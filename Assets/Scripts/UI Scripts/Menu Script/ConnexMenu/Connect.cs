@@ -23,7 +23,7 @@ public class Connect : MonoBehaviour
         GameObject.Find("UsernameConnexionInput").GetComponent<TMP_InputField>().text = "";
         GameObject.Find("PasswordConnexionInput").GetComponent<TMP_InputField>().text = "";
         //montrer le volet
-        LeanTween.moveX(myMenu.voletConnexion.gameObject.GetComponent<RectTransform>(), -322f, 0.2f);
+        LeanTween.moveX(myMenu.voletConnexion.gameObject.GetComponent<RectTransform>(), -322f, 0.3f);
         
     }
 

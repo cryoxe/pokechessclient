@@ -18,7 +18,6 @@ public class CardPage : MonoBehaviour
 
     public void CreateCardInstanceForPage(JSONNode listOfPokemon)
     {
-        Debug.LogWarning("Begin INSTANTIATE");
         foreach (JSONNode pokemon in listOfPokemon)
         {
             GameObject thisCard= Instantiate(pokemonCardPrefab, myMenu.Content.transform, false);

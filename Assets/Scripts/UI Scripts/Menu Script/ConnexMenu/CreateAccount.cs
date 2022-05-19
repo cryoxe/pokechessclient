@@ -25,13 +25,13 @@ public class CreateAccount : MonoBehaviour
         GameObject.Find("PasswordInput").GetComponent<TMP_InputField>().text = "";
 
         //montrer le volet
-        LeanTween.moveX(myMenu.voletAccount.gameObject.GetComponent<RectTransform>(), -322f, 0.2f);
+        LeanTween.moveX(myMenu.voletAccount.gameObject.GetComponent<RectTransform>(), -322f, 0.3f);
     }
 
     public void Close()
     {
         myMenu.disableOnRequest.DisableAllInput(false);
-        LeanTween.moveX(myMenu.voletAccount.gameObject.GetComponent<RectTransform>(), 322f, 0.2f).setOnComplete(NotHere);
+        LeanTween.moveX(myMenu.voletAccount.gameObject.GetComponent<RectTransform>(), 322f, 0.3f).setOnComplete(NotHere);
     }
     private void NotHere()
     {

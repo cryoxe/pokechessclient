@@ -96,6 +96,9 @@ public class MenuSwap : MonoBehaviour
         myMenu.disableOnRequest.EnableAllInput(false);
     }
     void SwitchToPlayMenu(){
+        PlayerInPartyMenu[] PlayerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
+        foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
+        
         myMenu.playButtonPlaceholder.SetActive(true);
 
         myMenu.accountPlaceholder.SetActive(false);
@@ -113,6 +116,9 @@ public class MenuSwap : MonoBehaviour
     }
     void SwitchToPartyMenu()
     {
+        RoomText[] roomAlreadyIn = FindObjectsOfType<RoomText>();
+        foreach(RoomText roomIn in roomAlreadyIn){Destroy(roomIn.gameObject);};
+
         myMenu.playButtonPlaceholder.SetActive(false);
         myMenu.LobbyPlaceholder.SetActive(false);
 
