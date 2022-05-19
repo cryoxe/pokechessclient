@@ -38,6 +38,8 @@ public class RequestDELETE : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             Debug.Log("L'utilsateur a bien quitté la partie");
+            PlayerInPartyMenu[] PlayerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
+            foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
             myMenu.menuSwap.Transition(3);
         }
         else

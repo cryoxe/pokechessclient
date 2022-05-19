@@ -70,6 +70,11 @@ public class PartyMenu : MonoBehaviour
     public void onMessageState(PartyStateUpdate message)
     {
         Debug.Log(message);
+        if(message.state.ToLower() == "deleted")
+        {
+            myMenu.popUp.SendPopUp("Il semblerait que le propriétaire de cette partie se soit déconnecté...", true);
+            myMenu.menuSwap.Transition(3);
+        }
     }
 
     private async void SubscribeForParty()

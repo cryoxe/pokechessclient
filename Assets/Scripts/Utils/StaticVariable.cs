@@ -30,4 +30,7 @@ public class StaticVariable
 
     public static string nameOfThePartyIn = null;
 
+    public static bool isConnexionFieldsOn = false;
+    public static bool isAccountFieldsOn = false;
+
 }

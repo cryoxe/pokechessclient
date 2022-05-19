@@ -20,11 +20,11 @@ public class DisableOnRequest : MonoBehaviour
         if(pokeball == true){
             if(myMenu.pokeball.GetCurrentAnimatorStateInfo(0).IsName("Rotate")){
                 myMenu.pokeball.SetTrigger("stop");
-                print("LA POKEBALL S'ARRÊTE !"); 
+                //print("LA POKEBALL S'ARRÊTE !"); 
             }
             else{
                 myMenu.pokeball.SetTrigger("isRotating");
-                print("LA POKEBALL TOURNE");            
+                //print("LA POKEBALL TOURNE");            
             }     
         }
         buttons = GetComponentsInChildren<Button>(true);

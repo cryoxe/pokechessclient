@@ -33,7 +33,7 @@ public class PopUp : MonoBehaviour
         }
         close.GetComponent<Button>().onClick.AddListener(ClosePopUp);
         LeanTween.scale(rect, new Vector3(1f, 1f, 1f), 0.45f).setEaseOutBounce();
-        print("APPARU");
+        //print("APPARU");
         foreach(BoxCollider2D b in boxCollider2Ds)
         {
             b.enabled = false;
@@ -45,7 +45,7 @@ public class PopUp : MonoBehaviour
         myMenu.pokeball.SetTrigger("stop");
         rect = GameObject.Find("PopUp(Clone)").GetComponent<RectTransform>();
         LeanTween.scale(rect, new Vector3(0f, 0f, 0f), 0.45f).setDestroyOnComplete(true);
-        print("DISPARU");
+        //print("DISPARU");
         foreach (BoxCollider2D b in boxCollider2Ds)
         {
             b.enabled = true;

@@ -27,7 +27,8 @@ public class Initialisation : MonoBehaviour
 
     //Menu de Connexion
     [HideInInspector]public GameObject accountPlaceholder;
-    [HideInInspector]public Button connexionButton, subscribeButton, createConnexion, closeConnexion, createAccount, closeAccount;
+    [HideInInspector]public Button connexionButton, subscribeButton, createConnexion, createAccount;
+    [HideInInspector]public ButtonCooldown closeConnexion, closeAccount;
     [HideInInspector]public Animator voletAccount, voletConnexion;
     [HideInInspector]public string usernameAccount, trainerNameAccount, passwordAccount;
     [HideInInspector]public string usernameConnexion, passwordConnexion;
@@ -92,10 +93,10 @@ public class Initialisation : MonoBehaviour
         subscribeButton = GameObject.Find("ButtonSubscribe").GetComponent<Button>();
 
         createConnexion = GameObject.Find("Connexion").GetComponent<Button>();
-        closeConnexion = GameObject.Find("CloseConnexion").GetComponent<Button>();
+        closeConnexion = GameObject.Find("CloseConnexion").GetComponent<ButtonCooldown>();
 
         createAccount = GameObject.Find("CreateAccount").GetComponent<Button>();
-        closeAccount = GameObject.Find("CloseAccount").GetComponent<Button>();
+        closeAccount = GameObject.Find("CloseAccount").GetComponent<ButtonCooldown>();
 
         dresseurImage = GameObject.Find("Dresseur").GetComponent<Image>();
 
