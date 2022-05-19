@@ -11,13 +11,22 @@ using System;
 public class RequestGET : MonoBehaviour
 {
     private Initialisation myMenu;
+    private SocketManager socketManager;
+
+    private CreateAccount createAccount;
+
     private Animator Pokeball;
+
+    private PopUp popUp;
 
     // Start is called before the first frame update
     void Start()
     {
         myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
         Pokeball = myMenu.pokeball;
+        socketManager = myMenu.sceneManager.GetComponent<SocketManager>();
+        createAccount = myMenu.sceneManager.GetComponent<CreateAccount>();
+        popUp = GameObject.Find("SceneManager").GetComponent<PopUp>();
     }
     public void SendGetRequestCardPage(int page = 1, int size = 4, bool isFilter = false, string filter = "")
     {
@@ -28,6 +37,9 @@ public class RequestGET : MonoBehaviour
         StartCoroutine(GetRequestAllParties());
     }    
 
+    public void SendGetRequestRefreshToken(string refreshToken){
+        StartCoroutine(GetRequestRefreshToken(refreshToken));
+    }
     IEnumerator GetRequestCardPage(int page, int size, bool isFilter, string filter){
 
         string CardPageURL = "";
@@ -111,4 +123,45 @@ public class RequestGET : MonoBehaviour
                 break;    
         }
     }
+
+    IEnumerator GetRequestRefreshToken(string refreshToken)
+    {
+        using UnityWebRequest webRequest = UnityWebRequest.Get(StaticVariable.apiUrl + "refreshtoken");
+        webRequest.SetRequestHeader("Authorization", refreshToken);
+        // Request and wait.
+        myMenu.disableOnRequest.DisableAllInput();
+        popUp.SendPopUp("Chargement...", false);
+        yield return webRequest.SendWebRequest();
+        myMenu.disableOnRequest.EnableAllInput();
+
+        switch (webRequest.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError("Error: " + webRequest.error);
+                break;
+
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError("HTTP Error: " + webRequest.error);
+                break;
+
+            case UnityWebRequest.Result.Success:
+                Debug.Log("Received: " + webRequest.downloadHandler.text);
+                JwtResponse response = JsonConvert.DeserializeObject<JwtResponse>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+                StaticVariable.accessToken = "Bearer " + response.access_token;
+                StaticVariable.refreshToken = "Bearer " + response.refresh_token;
+                RefreshToken refreshTokenToSave = new RefreshToken();
+                refreshTokenToSave.refreshToken = response.refresh_token;
+                refreshTokenToSave.username = StaticVariable.theUsername;
+                FindObjectOfType<SavePlayerAccount>().SaveIntoJson(refreshTokenToSave);
+                socketManager.ConnectWebsocket();
+
+                //Visuel
+                popUp.ChangePopUpMessage("Connexion réussi !");
+                myMenu.blur.enabled = false;
+                popUp.ClosePopUp();
+                myMenu.menuSwap.Transition(1);                                            
+                break;    
+        }
+    }    
 }

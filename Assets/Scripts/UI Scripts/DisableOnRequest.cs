@@ -44,7 +44,7 @@ public class DisableOnRequest : MonoBehaviour
     public void EnableAllInput(bool pokeball = true){
         if(pokeball == true){
             myMenu.pokeball.SetTrigger("stop");
-            print("LA POKEBALL S'ARRÊTE !"); 
+            //print("LA POKEBALL S'ARRÊTE !"); 
         }
         Button[] buttons = GetComponentsInChildren<Button>(true);
         ButtonCooldown[] buttonCooldowns = GetComponentsInChildren<ButtonCooldown>(true);

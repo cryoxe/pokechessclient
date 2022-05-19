@@ -8,6 +8,7 @@ using TMPro;
 public class Initialisation : MonoBehaviour
 {
     //Utility
+    [HideInInspector]public TextMeshProUGUI connectedPlayerName;
     [HideInInspector]public GameObject sceneManager;
     [HideInInspector]public PostProcessVolume blur;
     [HideInInspector]public MenuSwap menuSwap;
@@ -65,6 +66,7 @@ public class Initialisation : MonoBehaviour
     void Start()
     {
         //Utility
+        connectedPlayerName = GameObject.Find("NameOfConnectedPlayer").GetComponent<TextMeshProUGUI>();
         sceneManager = GameObject.Find("SceneManager");
         blur = GameObject.Find("PostProcessingGO").GetComponent<PostProcessVolume>();
         menuSwap = GetComponent<MenuSwap>();
@@ -138,6 +140,7 @@ public class Initialisation : MonoBehaviour
 
         //initialisation
         DisableBlur();
+        connectedPlayerName.text = "";
         menuSwap.SwitchToConnexionMenu();
     }
 

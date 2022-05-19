@@ -5,6 +5,12 @@ using UnityEngine;
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
     //JSON CLASS
+
+    public class RefreshToken{
+        public string refreshToken;
+        public string username = "Missing";
+    }
+    
     public class UserAccount
     {
         public string username;

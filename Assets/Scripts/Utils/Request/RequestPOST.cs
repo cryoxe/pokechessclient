@@ -55,7 +55,11 @@ public class RequestPOST : MonoBehaviour
         StartCoroutine(PostRequestRegisterAccount(url, _username, _password, _trainerName));
     }
     
-    public void SendPostRequestAuthenticate(string url, string _login, string _password) {
+    public void SendPostRequestAuthenticate(JwtRequest accountData) 
+    {
+        string url = StaticVariable.apiUrl + "authenticate";
+        string _login = accountData.username;
+        string _password = accountData.password;
         StartCoroutine(PostRequestAuthenticate(url, _login, _password));
     }
 
@@ -133,12 +137,13 @@ public class RequestPOST : MonoBehaviour
 
    }
 
-   IEnumerator PostRequestAuthenticate(string url, string _login, string _password)
+   IEnumerator PostRequestAuthenticate(string url, string _username, string _password)
    {
+
         //créer le JSON à envoyer
         var user = new JwtRequest
         {
-            username = _login,
+            username = _username,
             password = _password
         };
         UnityWebRequest request = CreateJsonToSend(user, url);
@@ -156,6 +161,10 @@ public class RequestPOST : MonoBehaviour
             JwtResponse response = JsonConvert.DeserializeObject<JwtResponse>(Encoding.UTF8.GetString(request.downloadHandler.data));
             StaticVariable.accessToken = "Bearer " + response.access_token;
             StaticVariable.refreshToken = "Bearer " + response.refresh_token;
+            RefreshToken refreshTokenToSave = new RefreshToken();
+            refreshTokenToSave.refreshToken = StaticVariable.refreshToken;
+            refreshTokenToSave.username = _username;
+            FindObjectOfType<SavePlayerAccount>().SaveIntoJson(refreshTokenToSave);
             socketManager.ConnectWebsocket();
 
             //Visuel
@@ -163,6 +172,7 @@ public class RequestPOST : MonoBehaviour
             myMenu.blur.enabled = false;
             popUp.ClosePopUp();
             connect.Close();
+            myMenu.connectedPlayerName.text = _username;
             myMenu.menuSwap.Transition(1);
         }
         else
