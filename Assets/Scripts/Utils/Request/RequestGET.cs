@@ -150,7 +150,7 @@ public class RequestGET : MonoBehaviour
                 if(webRequest.responseCode == 403)
                 {
                     popUp.ChangePopUpMessage("Vos identifiants sont arrivés à date d'expiration, veuillez vous reconnecter.");
-                    File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+                    File.Delete(Application.persistentDataPath + "/RefreshToken.json");
                     UnityEditor.AssetDatabase.Refresh();
                     popUp.PopUpShowInteraction();
                     myMenu.menuSwap.Transition(0);

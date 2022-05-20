@@ -10,6 +10,7 @@ public class StaticVariable
     public static string refreshToken;
 
     public static string theUsername = "<MISSIGNO>";
+    public static bool isOwner = false;
 
     public static int idForMenuSwitch;
 

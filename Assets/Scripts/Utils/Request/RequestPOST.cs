@@ -248,6 +248,7 @@ public class RequestPOST : MonoBehaviour
                 StaticVariable.nameOfThePartyIn = Partie["name"];
                 yield return new WaitForSeconds(0.41f);
                 FindObjectOfType<PartyMenu>().MakeMyParty(myParty, true);
+                StaticVariable.isOwner = true;
             
                 break;
         }

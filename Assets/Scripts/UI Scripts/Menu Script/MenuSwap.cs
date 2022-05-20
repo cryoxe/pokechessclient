@@ -96,6 +96,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.disableOnRequest.EnableAllInput(false);
     }
     void SwitchToPlayMenu(){
+        StaticVariable.isOwner = false;
         PlayerInPartyMenu[] PlayerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
         foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
         
