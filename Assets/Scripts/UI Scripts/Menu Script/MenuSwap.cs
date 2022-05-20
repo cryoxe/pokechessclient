@@ -62,7 +62,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.accountPlaceholder.SetActive(true);
 
         myMenu.mainButtonPlaceholder.SetActive(false);
-        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.playMenuCanvas.SetActive(false);
         myMenu.CardLibrary.SetActive(false);
         myMenu.LobbyPlaceholder.SetActive(false);
         myMenu.PartyPlaceholder.SetActive(false);
@@ -76,7 +76,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.buttonSlide.SetTrigger("Show");
         myMenu.clearCard.destroyAllCard();
         myMenu.accountPlaceholder.SetActive(false);
-        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.playMenuCanvas.SetActive(false);
         myMenu.CardLibrary.SetActive(false);
         
         myMenu.disableOnRequest.EnableAllInput(false);
@@ -91,7 +91,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.pageNumber.text = "Page 1";
         myMenu.buttonSlide.SetTrigger("Hide");
         myMenu.mainButtonPlaceholder.SetActive(false);
-        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.playMenuCanvas.SetActive(false);
 
         myMenu.disableOnRequest.EnableAllInput(false);
     }
@@ -100,11 +100,10 @@ public class MenuSwap : MonoBehaviour
         PlayerInPartyMenu[] PlayerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
         foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
         
+        myMenu.playMenuCanvas.SetActive(true);
         myMenu.playButtonPlaceholder.SetActive(true);
-        
-        myMenu.CreateGamePlaceholder.GetComponent<CanvasGroup>().alpha = 0;
-
-        myMenu.accountPlaceholder.SetActive(false);
+        myMenu.playButtonPlaceholder.GetComponent<CanvasGroup>().alpha = 1;
+        myMenu.createGameFields.GetComponent<CanvasGroup>().alpha = 0;
         myMenu.PartyPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
 
@@ -112,7 +111,7 @@ public class MenuSwap : MonoBehaviour
     }
     void SwitchToLobbyMenu()
     {
-        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.playMenuCanvas.SetActive(false);
         myMenu.LobbyPlaceholder.SetActive(true);
 
         myMenu.disableOnRequest.EnableAllInput(false);
@@ -122,7 +121,7 @@ public class MenuSwap : MonoBehaviour
         RoomText[] roomAlreadyIn = FindObjectsOfType<RoomText>();
         foreach(RoomText roomIn in roomAlreadyIn){Destroy(roomIn.gameObject);};
 
-        myMenu.playButtonPlaceholder.SetActive(false);
+        myMenu.playMenuCanvas.SetActive(false);
         myMenu.LobbyPlaceholder.SetActive(false);
 
         myMenu.PartyPlaceholder.SetActive(true);

@@ -4719,7 +4719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 16}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &794615356
@@ -4769,10 +4769,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 40.05
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -4805,7 +4805,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 64.48441, z: 0, w: 20.47123}
+  m_margin: {x: 27.33786, y: 64.48441, z: 30.554123, w: 20.47123}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7651,8 +7651,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1980, y: 1080}
-  m_ScreenMatchMode: 2
-  m_MatchWidthOrHeight: 0
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -9108,7 +9108,7 @@ GameObject:
   - component: {fileID: 1235269202}
   - component: {fileID: 1235269201}
   m_Layer: 5
-  m_Name: Button
+  m_Name: "D\xE9connexion"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9121,8 +9121,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235269199}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00050354004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 794615355}
@@ -9131,7 +9131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -171, y: -66}
+  m_AnchoredPosition: {x: -171, y: 0}
   m_SizeDelta: {x: 342, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1235269201
@@ -9218,7 +9218,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 1
+  m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1235269203
 CanvasRenderer:
@@ -11341,10 +11341,12 @@ MonoBehaviour:
   optionButton: {fileID: 0}
   patchNoteButton: {fileID: 0}
   buttonSlide: {fileID: 0}
-  playButtonPlaceholder: {fileID: 0}
+  playMenuCanvas: {fileID: 0}
   joinRoomButton: {fileID: 0}
   createRoomButton: {fileID: 0}
   backButton: {fileID: 0}
+  playButtonPlaceholder: {fileID: 290920922}
+  createGameFields: {fileID: 1213156469}
   LobbyPlaceholder: {fileID: 0}
   LobbyFitter: {fileID: 0}
   PartyPlaceholder: {fileID: 0}

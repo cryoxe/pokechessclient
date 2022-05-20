@@ -41,8 +41,11 @@ public class Initialisation : MonoBehaviour
     [HideInInspector]public Animator buttonSlide;
 
     //Menu Play Selection (jouer ou créer)
-    [HideInInspector]public GameObject playButtonPlaceholder;
+    [HideInInspector]public GameObject playMenuCanvas;
     [HideInInspector]public Button joinRoomButton, createRoomButton, backButton;
+    public GameObject playButtonPlaceholder;
+
+    public GameObject createGameFields;
 
     //Menu Lobby
     [HideInInspector]public GameObject LobbyPlaceholder;
@@ -114,20 +117,26 @@ public class Initialisation : MonoBehaviour
 
 
         //Menu Play Selection (jouer ou créer)
-        playButtonPlaceholder = GameObject.Find("PlayMenuCanvas");
+        playMenuCanvas = GameObject.Find("PlayMenuCanvas");
+
+        playButtonPlaceholder = GameObject.Find("PlayButtonPlaceholder");
+        createGameFields = GameObject.Find("CreateGameFields");
 
         joinRoomButton = GameObject.Find("PlayCreate").GetComponent<Button>();
         createRoomButton = GameObject.Find("PlayJoin").GetComponent<Button>();
         createRoomButton = GameObject.Find("Back").GetComponent<Button>();
 
+
         //Menu Lobby
         LobbyPlaceholder = GameObject.Find("LobbyMenu");
         LobbyFitter = GameObject.Find("fitter").GetComponent<VerticalLayoutGroup>();
+
 
         //Menu Party
         PartyPlaceholder = GameObject.Find("PartyMenu");
         PartyFitter = GameObject.Find("PartyFitter");
         CreateGamePlaceholder = GameObject.Find("CreateGameFields");
+
 
         //Menu Card Library
         CardLibrary = GameObject.Find("CardLibrary");
@@ -138,6 +147,7 @@ public class Initialisation : MonoBehaviour
         clearCard = GetComponent<ClearCard>();
         pageNumber = GameObject.Find("PageNumber").GetComponent<TextMeshProUGUI>();
         resetFilter = GameObject.Find("ResetFilter").GetComponent<ResetFilter>();
+
 
         //initialisation
         DisableBlur();

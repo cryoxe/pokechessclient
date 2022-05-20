@@ -7,34 +7,45 @@ public class CreateGame : MonoBehaviour
 {
     private Initialisation myMenu;
     private GameObject PlayMenuCanvas;
+    private GameObject CreategameCanvas;
 
     void Start()
     {
         myMenu = FindObjectOfType<Initialisation>();
-        PlayMenuCanvas = GameObject.Find("PlayButtonPlaceholder");
+        PlayMenuCanvas = myMenu.playButtonPlaceholder;
+        CreategameCanvas = myMenu.createGameFields;
+    }
+
+    private void Hide(GameObject canvas, System.Action thenDo)
+    {
+        LeanTween.alphaCanvas(canvas.GetComponent<CanvasGroup>(), 0f, 0.3f).setOnComplete(thenDo);
+    }
+    private void Show(GameObject canvas, System.Action thenDo)
+    {
+        LeanTween.alphaCanvas(canvas.GetComponent<CanvasGroup>(), 1f, 0.3f).setOnComplete(thenDo);
     }
 
     public void TransitionToCreateGame(){
-        myMenu.CreateGamePlaceholder.SetActive(true);
+        CreategameCanvas.SetActive(true);
         myMenu.disableOnRequest.DisableAllInput(false);
-        LeanTween.alphaCanvas(PlayMenuCanvas.GetComponent<CanvasGroup>(), 0f, 0.3f).setOnComplete(ShowCreateGameFields);
+        Hide(PlayMenuCanvas, ShowCreateGameFields);
     }
     private void ShowCreateGameFields()
     {
         PlayMenuCanvas.SetActive(false);
-        LeanTween.alphaCanvas(myMenu.CreateGamePlaceholder.GetComponent<CanvasGroup>(), 1f, 0.3f).setOnComplete(EnableButtons);
+        Show(CreategameCanvas, EnableButtons);
     }
 
     public void TransitionToPlayMenu()
     {
+        PlayMenuCanvas.SetActive(true);
         myMenu.disableOnRequest.DisableAllInput(false);
-        LeanTween.alphaCanvas(myMenu.CreateGamePlaceholder.GetComponent<CanvasGroup>(), 0f, 0.3f).setOnComplete(ShowPlayMenu);
-
+        Hide(CreategameCanvas, ShowPlayMenu);
     }    
     private void ShowPlayMenu()
     {
-        PlayMenuCanvas.SetActive(true);
-        LeanTween.alphaCanvas(PlayMenuCanvas.GetComponent<CanvasGroup>(), 1f, 0.3f).setOnComplete(EnableButtons);
+        CreategameCanvas.SetActive(false);
+        Show(PlayMenuCanvas, EnableButtons);
     }
 
     private void EnableButtons(){myMenu.disableOnRequest.EnableAllInput(false);}
