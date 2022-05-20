@@ -100,6 +100,8 @@ public class MenuSwap : MonoBehaviour
         foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
         
         myMenu.playButtonPlaceholder.SetActive(true);
+        
+        myMenu.CreateGamePlaceholder.GetComponent<CanvasGroup>().alpha = 0;
 
         myMenu.accountPlaceholder.SetActive(false);
         myMenu.PartyPlaceholder.SetActive(false);

@@ -27,7 +27,7 @@ public class PartyMenu : MonoBehaviour
         partyPrefab = Resources.Load<GameObject>("Prefabs/PlayerInRoom");
     }
 
-    public void MakeMyParty(Party myParty)
+    public void MakeMyParty(Party myParty, bool isOwner = false)
     {
         ConnectToParty();
         partyComponent.nameOfRoom.text = myParty.name;
@@ -45,8 +45,12 @@ public class PartyMenu : MonoBehaviour
             partyComponent.withPassword.SetActive(false);
         }
         else{partyComponent.withPassword.SetActive(true);}
-
-        partyComponent.startButton.SetActive(false);
+        if(isOwner == true)
+        {
+            partyComponent.startButton.SetActive(true);
+        }
+        else{partyComponent.startButton.SetActive(false);}
+        
     }
 
     public void ConnectToParty()

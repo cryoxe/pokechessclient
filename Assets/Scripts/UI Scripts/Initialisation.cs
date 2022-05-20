@@ -49,8 +49,8 @@ public class Initialisation : MonoBehaviour
     [HideInInspector]public VerticalLayoutGroup LobbyFitter;
 
     //Menu Party
-    [HideInInspector]public GameObject PartyPlaceholder;
-    [HideInInspector]public GameObject PartyFitter;
+    [HideInInspector]public GameObject PartyPlaceholder, PartyFitter;
+    [HideInInspector]public GameObject CreateGamePlaceholder;
 
     //Menu Card Library
     [HideInInspector]public GameObject CardLibrary, Content;
@@ -114,7 +114,7 @@ public class Initialisation : MonoBehaviour
 
 
         //Menu Play Selection (jouer ou créer)
-        playButtonPlaceholder = GameObject.Find("PlayButtonPlaceholder");
+        playButtonPlaceholder = GameObject.Find("PlayMenuCanvas");
 
         joinRoomButton = GameObject.Find("PlayCreate").GetComponent<Button>();
         createRoomButton = GameObject.Find("PlayJoin").GetComponent<Button>();
@@ -127,6 +127,7 @@ public class Initialisation : MonoBehaviour
         //Menu Party
         PartyPlaceholder = GameObject.Find("PartyMenu");
         PartyFitter = GameObject.Find("PartyFitter");
+        CreateGamePlaceholder = GameObject.Find("CreateGameFields");
 
         //Menu Card Library
         CardLibrary = GameObject.Find("CardLibrary");

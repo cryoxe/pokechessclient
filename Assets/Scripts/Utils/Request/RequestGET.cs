@@ -125,6 +125,9 @@ public class RequestGET : MonoBehaviour
     IEnumerator GetRequestRefreshToken(string refreshToken)
     {
         using UnityWebRequest webRequest = UnityWebRequest.Get(StaticVariable.apiUrl + "refreshtoken");
+
+        print("Token used for Refreshing : " +refreshToken);
+        //on utilise le token du paramètre
         webRequest.SetRequestHeader("Authorization", refreshToken);
         // Request and wait.
         myMenu.disableOnRequest.DisableAllInput();
@@ -137,10 +140,12 @@ public class RequestGET : MonoBehaviour
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
                 Debug.LogError("Error: " + webRequest.error);
+                Debug.LogError(webRequest.downloadHandler.text);
                 break;
 
             case UnityWebRequest.Result.ProtocolError:
                 Debug.LogError("HTTP Error: " + webRequest.error);
+                Debug.LogError(webRequest.downloadHandler.text);
 
                 if(webRequest.responseCode == 403)
                 {
@@ -155,10 +160,14 @@ public class RequestGET : MonoBehaviour
             case UnityWebRequest.Result.Success:
                 Debug.Log("Received: " + webRequest.downloadHandler.text);
                 JwtResponse response = JsonConvert.DeserializeObject<JwtResponse>(Encoding.UTF8.GetString(webRequest.downloadHandler.data));
+
+                //récupérer les nouveaux tokens de refresh et d'accès
                 StaticVariable.accessToken = "Bearer " + response.access_token;
                 StaticVariable.refreshToken = "Bearer " + response.refresh_token;
+
+                //mettre à jour le fichier de sauvegarde avec le nouveau refreshToken
                 RefreshToken refreshTokenToSave = new RefreshToken();
-                refreshTokenToSave.refreshToken = response.refresh_token;
+                refreshTokenToSave.refreshToken = StaticVariable.refreshToken;
                 refreshTokenToSave.username = StaticVariable.theUsername;
                 FindObjectOfType<SavePlayerAccount>().SaveIntoJson(refreshTokenToSave);
                 socketManager.ConnectWebsocket();

@@ -24,24 +24,29 @@ public class Connect : MonoBehaviour
 
     public void ShowVolet()
     {
+        //Vérifier si il existe une sauvegarde
+
         if(File.Exists(Application.persistentDataPath + "/RefreshToken.json"))
         {
+            //OUI --> Utiliser ce fichier
             Debug.Log("Fichier trouvé à : " + Application.persistentDataPath);
             string path = Application.persistentDataPath + "/RefreshToken.json";
             StreamReader reader = new StreamReader(path); 
+            //Lire le fichier
             RefreshToken playerData = JsonUtility.FromJson<RefreshToken>(reader.ReadToEnd());
             reader.Close();
-            StaticVariable.refreshToken = "Bearer " + playerData.refreshToken;
+            //afficher le nom du joueur stocké dans le fichier
             StaticVariable.theUsername = playerData.username;
-            myMenu.connectedPlayerName.text = playerData.username;
-            myMenu.requestGET.SendGetRequestRefreshToken(StaticVariable.refreshToken);
+            myMenu.connectedPlayerName.text = StaticVariable.theUsername;
+            //envoyer une requête pour obtenir le token d'access
+            myMenu.requestGET.SendGetRequestRefreshToken(playerData.refreshToken);
         }
         else
         {
+            //NON --> mettre ses credentials
             Debug.Log("Fichier introuvable à : " + Application.persistentDataPath);
             GameObject.Find("UsernameConnexionInput").GetComponent<TMP_InputField>().text = "";
             GameObject.Find("PasswordConnexionInput").GetComponent<TMP_InputField>().text = "";
-            //montrer le volet
             LeanTween.moveX(myMenu.voletConnexion.gameObject.GetComponent<RectTransform>(), -322f, 0.3f);
         }
 

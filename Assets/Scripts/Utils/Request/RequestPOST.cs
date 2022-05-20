@@ -63,9 +63,9 @@ public class RequestPOST : MonoBehaviour
         StartCoroutine(PostRequestAuthenticate(url, _login, _password));
     }
 
-    public void SendPostRequestCreateRoom(string url, TextMeshProUGUI outPutAera, string _roomName, string _password)
+    public void SendPostRequestCreateRoom(string _roomName, string _password)
     {
-        StartCoroutine(PostRequestCreateRoom(url, outPutAera, _roomName, _password));
+        StartCoroutine(PostRequestCreateRoom(_roomName, _password));
     }
 
     public void SendPostRequestJoinRoom(string nameOfRoom, string password = "")
@@ -207,8 +207,10 @@ public class RequestPOST : MonoBehaviour
 
     }
 
-   IEnumerator PostRequestCreateRoom(string url, TextMeshProUGUI outPutAera, string _roomName, string _password) 
+   IEnumerator PostRequestCreateRoom( string _roomName, string _password) 
    {
+        var url = StaticVariable.apiUrl + "parties";
+
         //créer le JSON à envoyer
         var user = new NewRoom
         {
@@ -216,40 +218,38 @@ public class RequestPOST : MonoBehaviour
             password = _password
         };
         UnityWebRequest request = CreateJsonToSend(user, url);
+        print("Token used for Creating Room : " +StaticVariable.accessToken);
+        request.SetRequestHeader("Authorization", StaticVariable.accessToken);
 
         //envoyer la requête
-        outPutAera.text = "Chargement...";
         myMenu.disableOnRequest.DisableAllInput();
         yield return request.SendWebRequest();
         myMenu.disableOnRequest.EnableAllInput();
 
-        //résultat :
-        if (request.result == UnityWebRequest.Result.Success)
+        switch (request.result)
         {
-            outPutAera.text = "Succès";
-        }
-        else
-        {
-            JSONNode jsonData = JSON.Parse(request.downloadHandler.text);
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError("Error: " + request.error);
+                Debug.LogError(request.downloadHandler.text);
+                break;
 
-            if (jsonData == null)
-            {
-                print("_______________NO DATA_______________");
-                outPutAera.text = "Le serveur n'as pas envoyé de données...";
-            }
-            else
-            {
-                print("_______________DATA_______________");
-                if (request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    print("Impossible de créer la salle...");
-                }
-                else if (request.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    outPutAera.text = "Impossible de se connecter.";
-                }
-            }
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError("HTTP Error: " + request.error);
+                Debug.LogError(request.responseCode);
+                Debug.LogError(request.downloadHandler.text);
+                break;
 
+            case UnityWebRequest.Result.Success:
+                Debug.Log("Received: " + request.downloadHandler.text);
+                JSONNode Partie = JSON.Parse(request.downloadHandler.text);
+                Party myParty = JsonConvert.DeserializeObject<Party>(request.downloadHandler.text);
+                FindObjectOfType<MenuSwap>().Transition(5);
+                StaticVariable.nameOfThePartyIn = Partie["name"];
+                yield return new WaitForSeconds(0.41f);
+                FindObjectOfType<PartyMenu>().MakeMyParty(myParty, true);
+            
+                break;
         }
     }
 
@@ -298,7 +298,6 @@ public class RequestPOST : MonoBehaviour
                 StaticVariable.nameOfThePartyIn = Partie["name"];
                 yield return new WaitForSeconds(0.41f);
                 FindObjectOfType<PartyMenu>().MakeMyParty(myParty);
-
                 break;
         }
     }
