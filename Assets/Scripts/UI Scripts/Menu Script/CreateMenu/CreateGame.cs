@@ -55,6 +55,7 @@ public class CreateGame : MonoBehaviour
     {
         string _roomName = GameObject.Find("PartyNameInput").GetComponent<TMP_InputField>().text;
         string _password = GameObject.Find("PartyPasswordInput").GetComponent<TMP_InputField>().text;
+        if(_password != ""){StaticVariable.passwordOfTheParty = _password;}
         myMenu.requestPOST.SendPostRequestCreateRoom(_roomName, _password);
     }
 }

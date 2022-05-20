@@ -30,6 +30,7 @@ public class StaticVariable
     public static string filter;
 
     public static string nameOfThePartyIn = null;
+    public static string passwordOfTheParty = null;
 
     public static bool isConnexionFieldsOn = false;
     public static bool isAccountFieldsOn = false;
