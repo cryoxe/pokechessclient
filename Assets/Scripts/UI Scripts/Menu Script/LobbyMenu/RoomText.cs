@@ -79,11 +79,13 @@ public class RoomText : MonoBehaviour
         inputPassword = GameObject.Find("InputFieldForRoomPassword").GetComponent<TMP_InputField>();
         FindObjectOfType<RequestPOST>().SendPostRequestJoinRoom(roomComponent.nameOfRoom.text,inputPassword.text);
         rect = GameObject.Find("PopUp(Clone)").GetComponent<RectTransform>();
-        LeanTween.scale(rect, new Vector3(0f, 0f, 0f), 0.45f).setDestroyOnComplete(true);
         foreach (BoxCollider2D b in boxCollider2Ds)
         {
             b.enabled = true;
         }
-        myMenu.DisableBlur();
+        myMenu.DisableBlur();        
+        Destroy(rect.gameObject);
+        //LeanTween.scale(rect, new Vector3(0f, 0f, 0f), 0.45f).setDestroyOnComplete(true);
+
     }
 }

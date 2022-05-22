@@ -126,7 +126,7 @@ public class RequestGET : MonoBehaviour
     {
         using UnityWebRequest webRequest = UnityWebRequest.Get(StaticVariable.apiUrl + "refreshtoken");
 
-        print("Token used for Refreshing : " +refreshToken);
+        //print("Token used for Refreshing : " +refreshToken);
         //on utilise le token du paramètre
         webRequest.SetRequestHeader("Authorization", refreshToken);
         // Request and wait.

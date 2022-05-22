@@ -287,10 +287,11 @@ public class RequestPOST : MonoBehaviour
 
             case UnityWebRequest.Result.ProtocolError:
                 Debug.LogError("HTTP Error: " + request.error);
+                Debug.Log(request.downloadHandler.text);
                 if(request.responseCode == 403)
                 {
                     JSONNode errorType = JSON.Parse(request.downloadHandler.text);
-                    if(errorType["error"] == "Party password incorrect"){myMenu.popUp.SendPopUp("Mot de passe incorrecte", true);}
+                    if(errorType["message"] == "Party password incorrect"){myMenu.popUp.SendPopUp("Mot de passe incorrecte", true);}
                     else{myMenu.popUp.SendPopUp("La partie est déjà pleine", true);}
                 }
                 break;

@@ -7920,7 +7920,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &1091147986
 RectTransform:
@@ -11491,7 +11491,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1672689702}
   - component: {fileID: 1672689706}
-  - component: {fileID: 1672689708}
   - component: {fileID: 1672689703}
   - component: {fileID: 1672689705}
   - component: {fileID: 1672689704}
@@ -11509,6 +11508,7 @@ GameObject:
   - component: {fileID: 1672689718}
   - component: {fileID: 1672689719}
   - component: {fileID: 1672689720}
+  - component: {fileID: 1672689708}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged

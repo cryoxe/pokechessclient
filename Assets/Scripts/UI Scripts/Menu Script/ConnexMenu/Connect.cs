@@ -29,7 +29,7 @@ public class Connect : MonoBehaviour
         if(File.Exists(Application.persistentDataPath + "/RefreshToken.json"))
         {
             //OUI --> Utiliser ce fichier
-            Debug.Log("Fichier trouvé à : " + Application.persistentDataPath);
+            //Debug.Log("Fichier trouvé à : " + Application.persistentDataPath);
             string path = Application.persistentDataPath + "/RefreshToken.json";
             StreamReader reader = new StreamReader(path); 
             //Lire le fichier
@@ -44,7 +44,7 @@ public class Connect : MonoBehaviour
         else
         {
             //NON --> mettre ses credentials
-            Debug.Log("Fichier introuvable à : " + Application.persistentDataPath);
+            //Debug.Log("Fichier introuvable à : " + Application.persistentDataPath);
             GameObject.Find("UsernameConnexionInput").GetComponent<TMP_InputField>().text = "";
             GameObject.Find("PasswordConnexionInput").GetComponent<TMP_InputField>().text = "";
             LeanTween.moveX(myMenu.voletConnexion.gameObject.GetComponent<RectTransform>(), -322f, 0.3f);
