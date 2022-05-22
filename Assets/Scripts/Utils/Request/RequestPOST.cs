@@ -270,10 +270,9 @@ public class RequestPOST : MonoBehaviour
             Debug.Log("Pas de MDP");
             request = new UnityWebRequest(url, "POST");
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Authorization", StaticVariable.accessToken);
             request.SetRequestHeader("Content-Type", "application/json");
         }
-
+        request.SetRequestHeader("Authorization", StaticVariable.accessToken);
         //envoyer la requête
         myMenu.disableOnRequest.DisableAllInput();
         yield return request.SendWebRequest();
@@ -288,7 +287,12 @@ public class RequestPOST : MonoBehaviour
 
             case UnityWebRequest.Result.ProtocolError:
                 Debug.LogError("HTTP Error: " + request.error);
-                Debug.LogError(request.responseCode);
+                if(request.responseCode == 403)
+                {
+                    JSONNode errorType = JSON.Parse(request.downloadHandler.text);
+                    if(errorType["error"] == "Party password incorrect"){myMenu.popUp.SendPopUp("Mot de passe incorrecte", true);}
+                    else{myMenu.popUp.SendPopUp("La partie est déjà pleine", true);}
+                }
                 break;
 
             case UnityWebRequest.Result.Success:

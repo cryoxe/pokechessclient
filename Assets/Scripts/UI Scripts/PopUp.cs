@@ -9,6 +9,7 @@ public class PopUp : MonoBehaviour
     private Initialisation myMenu;
     private RectTransform rect;
     private GameObject close;
+    private GameObject inputPassword;
     public BoxCollider2D[] boxCollider2Ds;
 
     private void Start()
@@ -27,6 +28,8 @@ public class PopUp : MonoBehaviour
         rect = newPopUp.GetComponent<RectTransform>();
         close = GameObject.Find("Close");
         close.GetComponent<Button>().enabled = true;
+        inputPassword = GameObject.Find("InputFieldForRoomPassword");
+        inputPassword.SetActive(false);
         if (interaction == false)
         {
             close.SetActive(false);

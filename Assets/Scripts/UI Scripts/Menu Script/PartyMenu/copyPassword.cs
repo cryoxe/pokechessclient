@@ -6,12 +6,9 @@ using TMPro;
 public class copyPassword : MonoBehaviour
 {
     private TextMeshProUGUI successMessage;
-    void Start(){
-        successMessage = GameObject.Find("SuccessMessage").GetComponent<TextMeshProUGUI>();
-        ResetString();
-    }
     public void CopyToClipboard()
     {
+        successMessage = GameObject.Find("SuccessMessage").GetComponent<TextMeshProUGUI>();
         GUIUtility.systemCopyBuffer = StaticVariable.passwordOfTheParty;
         successMessage.text = "Succès !";
         Invoke("ResetString", 0.85f);

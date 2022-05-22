@@ -27,6 +27,7 @@ public class LobbyMenu : MonoBehaviour {
         Debug.Log(message);
         GameObject thisRoom = Instantiate(partyPrefab, myMenu.LobbyFitter.transform, false);
         thisRoom.name = message.name;
+        thisRoom.GetComponent<RectTransform>().localScale = new Vector3(0.65f,0.65f,1);
         Debug.Log("Creating a paty with name : " + thisRoom.name);
         thisRoom.GetComponent<RoomText>().MakeMyRoom(message.name, message.owner, message.withPassword);
         

@@ -129,7 +129,7 @@ public class Initialisation : MonoBehaviour
 
         //Menu Lobby
         LobbyPlaceholder = GameObject.Find("LobbyMenu");
-        LobbyFitter = GameObject.Find("fitter").GetComponent<VerticalLayoutGroup>();
+        LobbyFitter = GameObject.Find("Panel").GetComponent<VerticalLayoutGroup>();
 
 
         //Menu Party

@@ -40,11 +40,11 @@ public class PartyMenu : MonoBehaviour
             thisPlayer.GetComponent<PlayerInPartyMenu>().MakeMyPlayer(player, idPlayer);
             thisPlayer.name = player; 
         }
-        if(myParty.withPassword == false)
+        if(myParty.withPassword == true && StaticVariable.isOwner == true)
         {
-            partyComponent.withPassword.SetActive(false);
+            partyComponent.withPassword.SetActive(true);
         }
-        else{partyComponent.withPassword.SetActive(true);}
+        else{partyComponent.withPassword.SetActive(false);}
         if(isOwner == true)
         {
             partyComponent.startButton.SetActive(true);
