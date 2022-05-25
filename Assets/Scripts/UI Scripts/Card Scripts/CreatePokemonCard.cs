@@ -77,15 +77,15 @@ public class CreatePokemonCard : MonoBehaviour
         string Speed = pokemonCard["baseSpeed"];
         pokemonCardListText.speed.text = Speed;
         absoluteSpeed = int.Parse(Speed);
-        if (absoluteSpeed > 200)
-        {
-            absoluteSpeed = 200;
-        }
-        else if (absoluteSpeed < 0)
-        {
-            absoluteSpeed = 0;
-        }
-        pokemonCardListTransform.cursor.eulerAngles = new Vector3(0, 0, (absoluteSpeed-100)*-1);
+        if (absoluteSpeed > 140){absoluteSpeed = 100;}
+        else if (absoluteSpeed < 0){absoluteSpeed = 0;}
+        int range1Max = 140;
+        int range1Min = 0;
+        int range2Max = -105;
+        int range2Min = 100;
+        float normalizedValue = Mathf.InverseLerp(range1Min, range1Max, absoluteSpeed);
+        float result = Mathf.Lerp(range2Min, range2Max, normalizedValue);
+        pokemonCardListTransform.cursor.eulerAngles = new Vector3(0, 0, result);
 
         //VIE
         pokemonCardListText.health.text = pokemonCard["lifePoint"];

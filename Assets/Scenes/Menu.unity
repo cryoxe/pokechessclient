@@ -7408,7 +7408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mot de passe optionnel :'
+  m_text: 'Mot de passe (optionnel) :'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbf200f93de19da44a51433c0e663865, type: 2}
   m_sharedMaterial: {fileID: -1602099410949062192, guid: cbf200f93de19da44a51433c0e663865, type: 2}
@@ -7435,8 +7435,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
-  m_fontSizeBase: 41
+  m_fontSize: 38.69
+  m_fontSizeBase: 38.69
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
