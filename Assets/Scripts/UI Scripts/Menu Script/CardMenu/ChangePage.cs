@@ -76,7 +76,4 @@ public class ChangePage : MonoBehaviour
         myMenu.pageNumber.text = "Page " + page.ToString();
         LeanTween.moveLocal(myMenu.Content, new Vector3(0, 0, 0), 5f * Time.deltaTime).setEaseInOutElastic();
     }
-
-    
-
 }

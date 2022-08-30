@@ -97,8 +97,11 @@ public class MenuSwap : MonoBehaviour
     }
     void SwitchToPlayMenu(){
         StaticVariable.isOwner = false;
-        PlayerInPartyMenu[] PlayerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
-        foreach(PlayerInPartyMenu PlayerIn in PlayerAlreadyIn){Destroy(PlayerIn.gameObject);};
+        PlayerInPartyMenu[] playerAlreadyIn = FindObjectsOfType<PlayerInPartyMenu>();
+        foreach(PlayerInPartyMenu playerIn in playerAlreadyIn){Destroy(playerIn.gameObject);};
+
+        RoomText[] partyAlreadyIn = FindObjectsOfType<RoomText>();
+        foreach(RoomText partyIn in partyAlreadyIn){Destroy(partyIn.gameObject);};
         
         myMenu.playMenuCanvas.SetActive(true);
         myMenu.playButtonPlaceholder.SetActive(true);
@@ -106,6 +109,7 @@ public class MenuSwap : MonoBehaviour
         myMenu.createGameFields.GetComponent<CanvasGroup>().alpha = 0;
         myMenu.PartyPlaceholder.SetActive(false);
         myMenu.mainButtonPlaceholder.SetActive(false);
+        myMenu.LobbyPlaceholder.SetActive(false);
 
         myMenu.disableOnRequest.EnableAllInput(false);
     }

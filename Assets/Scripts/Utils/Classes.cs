@@ -43,6 +43,11 @@ using UnityEngine;
         public string password;
     }
 
+    public class NewRoomWithoutPassword
+    {
+        public string name;
+    }
+
     public class PokemonPageWithFilter
     {
         public int page;

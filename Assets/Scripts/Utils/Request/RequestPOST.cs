@@ -210,15 +210,26 @@ public class RequestPOST : MonoBehaviour
    IEnumerator PostRequestCreateRoom( string _roomName, string _password) 
    {
         var url = StaticVariable.apiUrl + "parties";
+        UnityWebRequest request = null;
 
-        //créer le JSON à envoyer
-        var user = new NewRoom
+        if (_password == "")
         {
-            name = _roomName,
-            password = _password
-        };
-        UnityWebRequest request = CreateJsonToSend(user, url);
-        print("Token used for Creating Room : " +StaticVariable.accessToken);
+            print("Creating Room with NO password");
+            var user = new NewRoomWithoutPassword{name = _roomName};
+            request = CreateJsonToSend(user, url);        
+        }
+        else
+        {
+            print("Creating Room with password");
+            var user = new NewRoom
+            {
+                name = _roomName,
+                password = _password
+            };
+            request = CreateJsonToSend(user, url);
+        }
+
+        print("Token used for Creating Room : " + StaticVariable.accessToken);
         request.SetRequestHeader("Authorization", StaticVariable.accessToken);
 
         //envoyer la requête
@@ -242,10 +253,10 @@ public class RequestPOST : MonoBehaviour
 
             case UnityWebRequest.Result.Success:
                 Debug.Log("Received: " + request.downloadHandler.text);
-                JSONNode Partie = JSON.Parse(request.downloadHandler.text);
+                JSONNode Party = JSON.Parse(request.downloadHandler.text);
                 Party myParty = JsonConvert.DeserializeObject<Party>(request.downloadHandler.text);
                 FindObjectOfType<MenuSwap>().Transition(5);
-                StaticVariable.nameOfThePartyIn = Partie["name"];
+                StaticVariable.nameOfThePartyIn = Party["name"];
                 yield return new WaitForSeconds(0.41f);
                 FindObjectOfType<PartyMenu>().MakeMyParty(myParty, true);
                 StaticVariable.isOwner = true;

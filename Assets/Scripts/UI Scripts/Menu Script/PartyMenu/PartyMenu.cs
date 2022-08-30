@@ -27,6 +27,12 @@ public class PartyMenu : MonoBehaviour
         partyPrefab = Resources.Load<GameObject>("Prefabs/PlayerInRoom");
     }
 
+    void EraseExistingPlayer(string player)
+    {
+        GameObject existingPlayer = GameObject.Find(player);
+        if (existingPlayer != null){Destroy(existingPlayer);}
+    }
+
     public void MakeMyParty(Party myParty, bool isOwner = false)
     {
         ConnectToParty();
@@ -35,6 +41,7 @@ public class PartyMenu : MonoBehaviour
         //if(myMenu == null){ Debug.LogWarning("pas trouvé Initialisation...");}
         int idPlayer = 0;
         foreach(string player in myParty.players){
+            EraseExistingPlayer(player);
             idPlayer += 1;
             GameObject thisPlayer = Instantiate(partyPrefab, myMenu.PartyFitter.transform, false);
             thisPlayer.GetComponent<PlayerInPartyMenu>().MakeMyPlayer(player, idPlayer);
@@ -64,6 +71,7 @@ public class PartyMenu : MonoBehaviour
         int idPlayer = 0;
         foreach(string player in message.players)
         {
+            EraseExistingPlayer(player);
             idPlayer += 1;
             GameObject thisPlayer = Instantiate(partyPrefab, myMenu.PartyFitter.transform, false);
             thisPlayer.GetComponent<PlayerInPartyMenu>().MakeMyPlayer(player, idPlayer);

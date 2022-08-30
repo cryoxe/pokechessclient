@@ -55,10 +55,10 @@ public class CreatePokemonCard : MonoBehaviour
     public PokemonCardListSlider pokemonCardListSlider;
     public PokemonCardListTransform pokemonCardListTransform;
     
-    void Start(){
-        myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
-        myMenu.clearCard.cardToDestroy.Add(gameObject);
-    }
+    //void Start(){
+        //myMenu = GameObject.Find("SceneManager").GetComponent<Initialisation>();
+        //myMenu.clearCard.cardToDestroy.Add(gameObject);
+    //}
     public void MakeMyCard(JSONNode pokemonCard)
     {
 
@@ -217,27 +217,5 @@ public class CreatePokemonCard : MonoBehaviour
             EvoComponent.image.sprite = Image;
             EvoComponent.condition.text = myEvo["description"];
         }
-    }
-
-    public void Update()
-    {
-        //try
-        //{
-        //    absoluteSpeed = int.Parse(GameObject.Find("SpeedValue").GetComponent<TextMeshProUGUI>().text);
-        //}
-        //catch
-        //{
-        //    absoluteSpeed = 0;
-        //}
-        //if (absoluteSpeed > 140)
-        //{
-        //    absoluteSpeed = 140;
-        //}
-        //else if (absoluteSpeed < 0)
-        //{
-        //    absoluteSpeed = 0;
-        //}
-        ////1.42857x−100
-        //GameObject.Find("Cursor").GetComponent<RectTransform>().eulerAngles = new Vector3(0, 0, (1.42857f * absoluteSpeed-100)*-1);
     }
 }
