@@ -153,6 +153,8 @@ public class CreatePokemonCard : MonoBehaviour
         JSONNode pokemonCardOffensive = pokemonCard["offensiveAttack"];
         pokemonCardListText.attackName.text = pokemonCardOffensive["name"];
         pokemonCardListText.attackEffect.text = pokemonCardOffensive["description"];
+
+        pokemonCardListText.attackEffect.ForceMeshUpdate();
         float autoSize = pokemonCardListText.attackEffect.fontSize;
         pokemonCardListText.attackEffect.enableAutoSizing  = false;
         pokemonCardListText.attackEffect.fontSize = autoSize;
@@ -168,6 +170,8 @@ public class CreatePokemonCard : MonoBehaviour
         JSONNode pokemonCardDefensive = pokemonCard["defensiveAttack"];
         pokemonCardListText.defenseName.text = pokemonCardDefensive["name"];
         pokemonCardListText.defenseEffect.text = pokemonCardDefensive["description"];
+
+        pokemonCardListText.attackEffect.ForceMeshUpdate();
         autoSize = pokemonCardListText.defenseEffect.fontSize;
         pokemonCardListText.defenseEffect.enableAutoSizing  = false;
         pokemonCardListText.defenseEffect.fontSize = autoSize;
