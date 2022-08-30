@@ -64,6 +64,7 @@ public class CreatePokemonCard : MonoBehaviour
 
         //Affichage simple :
         pokemonCardListText.name.text = pokemonCard["name"];
+        gameObject.name = pokemonCard["name"];
         pokemonCardListText.level.text = pokemonCard["level"];
         //ID
         string pokeID = pokemonCard["pokemonId"];
@@ -148,28 +149,31 @@ public class CreatePokemonCard : MonoBehaviour
         }
 
         //ATTACK
+        pokemonCardListText.attackEffect.enableAutoSizing = true;
         JSONNode pokemonCardOffensive = pokemonCard["offensiveAttack"];
         pokemonCardListText.attackName.text = pokemonCardOffensive["name"];
         pokemonCardListText.attackEffect.text = pokemonCardOffensive["description"];
-        if (pokemonCardListText.attackEffect.text.Length < 50)
-        {
-            pokemonCardListText.attackEffect.fontSize = 30;
-            pokemonCardListText.attackName.fontSize = 32;
+        float autoSize = pokemonCardListText.attackEffect.fontSize;
+        pokemonCardListText.attackEffect.enableAutoSizing  = false;
+        pokemonCardListText.attackEffect.fontSize = autoSize;
 
-        }
+        if (pokemonCardListText.attackEffect.fontSize > 45){pokemonCardListText.attackEffect.fontSize = 45;}
+
         pokemonCardListText.attackDamage.text = pokemonCardOffensive["power"];
         Image = Resources.Load<Sprite>("Sprites/PokémonTemplate/attaques/boutons attaque/B" + pokemonCardOffensive["type"]);
         pokemonCardListImage.attackButton.sprite = Image;
 
         //DEFENSE
+        pokemonCardListText.defenseEffect.enableAutoSizing  = true;
         JSONNode pokemonCardDefensive = pokemonCard["defensiveAttack"];
         pokemonCardListText.defenseName.text = pokemonCardDefensive["name"];
         pokemonCardListText.defenseEffect.text = pokemonCardDefensive["description"];
-        if (pokemonCardListText.defenseEffect.text.Length < 50)
-        {
-            pokemonCardListText.defenseEffect.fontSize = 30;
-            pokemonCardListText.defenseName.fontSize = 32;
-        }
+        autoSize = pokemonCardListText.defenseEffect.fontSize;
+        pokemonCardListText.defenseEffect.enableAutoSizing  = false;
+        pokemonCardListText.defenseEffect.fontSize = autoSize;
+
+        if (pokemonCardListText.defenseEffect.fontSize > 45){pokemonCardListText.defenseEffect.fontSize = 45;}
+
         Image = Resources.Load<Sprite>("Sprites/PokémonTemplate/attaques/boutons attaque/B" + pokemonCardDefensive["type"]);
         pokemonCardListImage.defenseButton.sprite = Image;
 

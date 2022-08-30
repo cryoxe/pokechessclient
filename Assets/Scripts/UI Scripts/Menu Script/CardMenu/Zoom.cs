@@ -37,7 +37,7 @@ public class Zoom : MonoBehaviour
 
             rectObject.localPosition = new Vector3(rectObject.localPosition.x, rectObject.localPosition.y, 1); 
             LeanTween.moveLocal(gameObject, new Vector3(0f, 0f, 0f), 0.10f);
-            LeanTween.scale(rectObject, new Vector3(0.75f, 0.75f, 0.75f), 0.15f);
+            LeanTween.scale(rectObject, new Vector3(0.9f, 0.9f, 0.9f), 0.15f);
             isZooming = true;
         }
         else
